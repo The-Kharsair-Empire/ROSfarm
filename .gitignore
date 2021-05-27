@@ -1,0 +1,7 @@
+src/farmbot_rosplan_interface/farmbot_connector/res/Credentials.json
+logs/
+venv/*
+__pycache__
+.idea/
+build
+devel
