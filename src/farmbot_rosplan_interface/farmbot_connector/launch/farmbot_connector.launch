@@ -2,17 +2,12 @@
 <launch>
 
 	<!-- arguments -->
-
-
 	<arg name="credential_file"	default="$(find farmbot_connector)/res/Credentials.json" />
 
+    <!-- the connector node -->
     <node name="farmbot_connector_main" pkg="farmbot_connector" type="farmbot_connector_main.py" respawn="false" output="screen">
         <param name="credential_file" value="$(arg credential_file)"/>
     </node>
-
-
-
-	
 
 </launch>
 

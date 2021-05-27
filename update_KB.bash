@@ -10,23 +10,42 @@
 update_type="update_type:"
 knowledge="knowledge:"
 
-# Move initial pos to posA
+# # Move initial pos to posA
+# update_type="$update_type
+# - 0";
+# knowledge="$knowledge
+# - knowledge_type: 1
+#   attribute_name: 'farmbot-at'
+#   values:
+#   - {key: 'x', value: 'posA'}"
+
+# # Del original initial pos
+# update_type="$update_type
+# - 2";
+# knowledge="$knowledge
+# - knowledge_type: 1
+#   attribute_name: 'farmbot-at'
+#   values:
+#   - {key: 'x', value: 'posinit'}"
+
+
+
 update_type="$update_type
 - 0";
 knowledge="$knowledge
 - knowledge_type: 1
-  attribute_name: 'farmbot-at'
+  attribute_name: 'dock_at'
   values:
-  - {key: 'x', value: 'posA'}"
+  - {key: 'wp', value: 'wp2'}"
 
 # Del original initial pos
 update_type="$update_type
 - 2";
 knowledge="$knowledge
 - knowledge_type: 1
-  attribute_name: 'farmbot-at'
+  attribute_name: 'dock_at'
   values:
-  - {key: 'x', value: 'posinit'}"
+  - {key: 'wp', value: 'wp0'}"
 
 rosservice call /rosplan_knowledge_base/update_array "
 $update_type

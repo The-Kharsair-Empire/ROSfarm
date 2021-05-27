@@ -6,6 +6,6 @@ Initial heuristic = 2.000
 b (1.000 | 0.000);;;; Solution Found
 ; States evaluated: 3
 ; Cost: 0.001
-; Time 0.02
+; Time 0.03
 0.000: (move loc1_1 loc1_2)  [0.001]
 0.001: (move loc1_2 loc2_2)  [0.001]

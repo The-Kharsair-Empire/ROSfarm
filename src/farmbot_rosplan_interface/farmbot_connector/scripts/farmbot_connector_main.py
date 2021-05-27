@@ -10,6 +10,7 @@ import requests
 import json
 import paho.mqtt.publish as publish
 from utils.celeryScriptFormatter import *
+from utils.FarmbotWrapper import Farmbot
 
 
 def _get_credentials(credential_json_file):
@@ -29,7 +30,7 @@ def get_token(credential_json_file, display=False):
         json={'user': {'email': email, 'password': psw}})
 
     token = response.json()
-
+    
     if display:
         device_id = token['token']['unencoded']['bot']
         mqtt_broker = token['token']['unencoded']['mqtt']
@@ -41,12 +42,54 @@ def get_token(credential_json_file, display=False):
         print('[console info]: mqtt server: ', mqtt_broker)
         print('[console info]: api_token: ', api_token)
 
-    return token
+    return json.dumps(token)
 
-class FarmbotTopic(enum.Enum):
-    Logs = 'logs'
-    FromClient = 'from_clients'
-    Illegal = 'gg'
+class Handler:
+    def on_connect(self, bot, mqtt_client):
+        request_id1 = bot.move_absolute(x=10, y=20, z=30)
+
+        print("MOVE_ABS REQUEST ID: " + request_id1)
+
+        request_id2 = bot.send_message("Hello, world!")
+
+        print("SEND_MESSAGE REQUEST ID: " + request_id2)
+
+    def on_change(self, bot, state):
+        print("NEW BOT STATE TREE AVAILABLE:")
+        #print(state)
+
+        print("Current position: (%.2f, %.2f, %.2f)" % bot.position())
+
+        pos = state["location_data"]["position"]
+        xyz = (pos["x"], pos["y"], pos["z"])
+        print("Same information as before: " + str(xyz))
+
+    def on_log(self, bot, log):
+        print("New message from FarmBot: " + log['message'])
+
+    def on_response(self, bot, response):
+        print("ID of successful request: " + response.id)
+
+    def on_error(self, bot, response):
+        print("ID of failed request: " + response.id)
+
+        print("Reason(s) for failure: " + str(response.errors))
+
+
+
+def farmbot_setup():
+
+    token = get_token(rospy.get_param('~credential_file'), False)
+
+    bot = Farmbot(token)
+
+    my_handler = Handler()
+
+    bot.connect(my_handler)
+
+    return bot
+
+
 
 
 def main():
@@ -56,26 +99,20 @@ def main():
 
     token = get_token(rospy.get_param('~credential_file'), False)
 
-    device_id = token['token']['unencoded']['bot']
-    mqtt_broker = token['token']['unencoded']['mqtt']
-    api_token = token['token']['encoded']
 
     print("[console info]: farmbot_connector node started ")
 
-    message = send_message('wtf')
+    bot = farmbot_setup()
 
-    publish.single(
-        'bot/{}/{}'.format(device_id, FarmbotTopic.Illegal.value),
-        payload=json.dumps(message),
-        hostname=mqtt_broker,
-        auth={
-            'username': device_id,
-            'password': api_token
-            }
-        )
-
-    print("[console info]: greeting to farmbot sended")
+    print("[console info]: Connected to farmbot")
     
+    
+    rospy.spin()
+
+
+def test():
+
+    rospy.init_node('test_node')
     
     rospy.spin()
 
