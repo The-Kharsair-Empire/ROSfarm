@@ -5,8 +5,11 @@
 	<!-- <arg name="domain_path"	default="$(find rosplan_demos)/common/domain_turtlebot.pddl" />
 	<arg name="problem_path"	default="$(find rosplan_demos)/common/problem_turtlebot.pddl" /> -->
 
-	<arg name="domain_path"	default="$(find pddl)/common/domain_bot_visiting.pddl" />
-	<arg name="problem_path"	default="$(find pddl)/common/problem_bot_visiting.pddl" />
+	<!-- <arg name="domain_path"	default="$(find pddl)/common/domain_bot_visiting.pddl" />
+	<arg name="problem_path"	default="$(find pddl)/common/problem_bot_visiting.pddl" /> -->
+
+	<arg name="domain_path"		default="$(find pddl)/common/domain_bot_visiting_temporal.pddl" />
+	<arg name="problem_path"	default="$(find pddl)/common/problem_bot_visiting_temporal.pddl" />
 
 	<!-- knowledge base -->
 	<node name="rosplan_knowledge_base" pkg="rosplan_knowledge_base" type="knowledgeBase" respawn="false" output="screen">
@@ -53,6 +56,25 @@
 		<arg name="action_feedback_topic"    value="action_feedback" />
 		<arg name="planner_type"			 value="pddl_esterel_plan_dispatcher" />
 	</include>
+
+
+	<!-- simulated action -->
+	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
+		<arg name="pddl_action_name" value="move" />
+		<arg name="action_duration" value="15" />
+	</include>
+	<!-- <include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
+		<arg name="pddl_action_name" value="dock" />
+		<arg name="action_duration" value="10" />
+	</include>
+	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
+		<arg name="pddl_action_name" value="localise" />
+		<arg name="action_duration" value="1" />
+	</include>
+	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
+		<arg name="pddl_action_name" value="goto_waypoint" />
+		<arg name="action_duration" value="4" />
+	</include> -->
 
 </launch>
 

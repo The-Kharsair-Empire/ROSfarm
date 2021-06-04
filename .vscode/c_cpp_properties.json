@@ -1,0 +1,23 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/opt/ros/melodic/include/**",
+        "/mnt/c/Users/cjy29/Documents/WSL/ROSfarm/devel/include/**",
+        "/mnt/c/Users/cjy29/Documents/WSL/ROSPlan/devel/include/**",
+        "/mnt/c/Users/cjy29/Documents/WSL/ROSfarm/src/farmbot_rosplan_interface/farmbot_connector/include/**",
+        "/mnt/c/Users/cjy29/Documents/WSL/ROSfarm/src/farmbot_rosplan_interface/farmbot_kb_interface/include/**",
+        "/mnt/c/Users/cjy29/Documents/WSL/ROSfarm/src/farmbot_rosplan_interface/farmbot_msgs/include/**",
+        "/mnt/c/Users/cjy29/Documents/WSL/ROSfarm/src/rosplan/rosplan_knowledge_base/include/**",
+        "/mnt/c/Users/cjy29/Documents/WSL/ROSfarm/src/rosplan/rosplan_planning_system/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS"
+    }
+  ],
+  "version": 4
+}

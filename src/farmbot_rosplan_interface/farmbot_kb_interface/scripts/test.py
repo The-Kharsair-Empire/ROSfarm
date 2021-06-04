@@ -4,6 +4,9 @@ import rospy
 import std_msgs
 import rosplan_knowledge_msgs
 import rosplan_dispatch_msgs
+import farmbot_msgs
+from rosplan_knowledge_msgs.msg import KnowledgeItem
+
 # import farmbot_rosplan_interface.farmbot_msgs
 
 def main():

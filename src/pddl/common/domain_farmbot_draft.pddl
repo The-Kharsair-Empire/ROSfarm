@@ -74,7 +74,7 @@
 
 
 (:action check-watring-needed
-    :parameters (?p -plants ?x - position ?l - level)
+    :parameters (?p -plants ?x - position)
     :precondition (and 
         (plant-at ?p ?x)
         (farmbot-at ?x)

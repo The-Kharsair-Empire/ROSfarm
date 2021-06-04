@@ -30,22 +30,47 @@ knowledge="knowledge:"
 
 
 
-update_type="$update_type
-- 0";
-knowledge="$knowledge
-- knowledge_type: 1
-  attribute_name: 'dock_at'
-  values:
-  - {key: 'wp', value: 'wp2'}"
+# update_type="$update_type
+# - 0";
+# knowledge="$knowledge
+# - knowledge_type: 1
+#   attribute_name: 'docked'
+#   values:
+#   - {key: 'v', value: 'kenny'}"
 
-# Del original initial pos
+# # Del original initial pos
+# update_type="$update_type
+# - 2";
+# knowledge="$knowledge
+# - knowledge_type: 1
+#   attribute_name: 'undocked'
+#   values:
+#   - {key: 'v', value: 'kenny'}"
+
+# # Del localised
+# update_type="$update_type
+# - 2";
+# knowledge="$knowledge
+# - knowledge_type: 1
+#   attribute_name: 'localised'
+#   values:
+#   - {key: 'v', value: 'kenny'}"
+
+################ this is how you update predicate with no argument
 update_type="$update_type
 - 2";
 knowledge="$knowledge
 - knowledge_type: 1
-  attribute_name: 'dock_at'
-  values:
-  - {key: 'wp', value: 'wp0'}"
+  attribute_name: 'robot-functioning'  
+  "
+
+# update_type="$update_type
+# - 2";
+# knowledge="$knowledge
+# - knowledge_type: 1
+#   attribute_name: 'at-robot'
+#   values:
+#   - {key: 'x', value: 'loc1_1'}"
 
 rosservice call /rosplan_knowledge_base/update_array "
 $update_type
