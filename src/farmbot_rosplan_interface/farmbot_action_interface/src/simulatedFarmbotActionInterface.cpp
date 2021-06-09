@@ -1,7 +1,6 @@
 #include "farmbot_action_interface/simulatedFarmbotActionInterface.h"
 
 
-/* The implementation of RPSimulatedActionInterface.h */
 namespace kharsair {
 
 	/* constructor */

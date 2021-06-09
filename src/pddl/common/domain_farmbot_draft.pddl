@@ -1,4 +1,4 @@
-(define (domain d-farmbot)
+(define (domain d-farmbot-draft)
 (:requirements :typing)
 (:types        
 	plants 

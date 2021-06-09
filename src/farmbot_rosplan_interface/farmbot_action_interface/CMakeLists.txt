@@ -108,9 +108,11 @@ find_package(catkin REQUIRED COMPONENTS
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
+ 
+#need the INCLUDE_DIRS include ${catkin_INCLUDE_DIRS} and LIBRARIES farmbot_action_interface, if you don't want to see import warning
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES farmbot_action_interface
+  INCLUDE_DIRS include ${catkin_INCLUDE_DIRS}
+  LIBRARIES farmbot_action_interface
   CATKIN_DEPENDS actionlib actionlib_msgs farmbot_msgs roscpp rosplan_dispatch_msgs rosplan_knowledge_msgs rospy std_msgs message_runtime
 #  DEPENDS system_lib
 )
@@ -142,7 +144,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/farmbot_action_interface_node.cpp)
 add_executable(simulatedFarmbotAction src/simulatedFarmbotActionInterface.cpp)
-
+add_executable(farmbotActionClient src/farmbotActionInterface.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -154,6 +156,7 @@ add_executable(simulatedFarmbotAction src/simulatedFarmbotActionInterface.cpp)
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(simulatedFarmbotAction ${catkin_EXPORTED_TARGETS})
+add_dependencies(farmbotActionClient ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
@@ -161,7 +164,7 @@ add_dependencies(simulatedFarmbotAction ${catkin_EXPORTED_TARGETS})
 # )
 
 target_link_libraries(simulatedFarmbotAction ${catkin_LIBRARIES})
-
+target_link_libraries(farmbotActionClient ${catkin_LIBRARIES})
 
 #############
 ## Install ##

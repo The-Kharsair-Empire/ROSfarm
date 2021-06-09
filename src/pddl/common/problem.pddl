@@ -11,7 +11,9 @@
     (connected loc2_1 loc2_2)
     (connected loc2_2 loc2_1)
 
+    (robot-functioning)
 
+    (at-robot loc1_1)
 
     (visited loc1_1)
 

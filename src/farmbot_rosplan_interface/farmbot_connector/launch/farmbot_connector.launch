@@ -3,10 +3,14 @@
 
 	<!-- arguments -->
 	<arg name="credential_file"	default="$(find farmbot_connector)/res/Credentials.json" />
+    <arg name="position_predicate_pair_file"	default="$(find farmbot_connector)/res/landmarks.json" />
+    <arg name="action_service_name" default="/farmbot_connector/action"/>
 
     <!-- the connector node -->
     <node name="farmbot_connector_main" pkg="farmbot_connector" type="farmbot_connector_main.py" respawn="false" output="screen">
         <param name="credential_file" value="$(arg credential_file)"/>
+        <param name="position_predicate_pair_file" value="$(arg position_predicate_pair_file)"/>
+        <param name="action_service_name"    value="$(arg action_service_name)"/>
     </node>
 
 </launch>

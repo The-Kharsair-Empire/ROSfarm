@@ -9,7 +9,10 @@ int main(int argc, char **argv) {
 
     ros::NodeHandle nh;
 
-    ros::ServiceClient c = nh.serviceClient<rosplan_knowledge_msgs::KnowledgeUpdateServiceArray>("/rosplan_knowledge_base/update_array");
+    ROS_INFO("cpp test_update_kb node started");
+
+
+    ros::ServiceClient update_kb = nh.serviceClient<rosplan_knowledge_msgs::KnowledgeUpdateServiceArray>("/rosplan_knowledge_base/update_array");
 
     rosplan_knowledge_msgs::KnowledgeUpdateServiceArray srv;
 
@@ -26,12 +29,19 @@ int main(int argc, char **argv) {
     kv.value = "loc1_1";
     ki2.values.push_back(kv);
 
+
     srv.request.update_type.push_back(rosplan_knowledge_msgs::KnowledgeUpdateServiceArrayRequest::REMOVE_KNOWLEDGE);
     srv.request.update_type.push_back(rosplan_knowledge_msgs::KnowledgeUpdateServiceArrayRequest::REMOVE_KNOWLEDGE);
     srv.request.knowledge.push_back(ki1);
     srv.request.knowledge.push_back(ki2);
 
-    if(c.call(srv))
+    if (!update_kb.waitForExistence(ros::Duration(10.0)))
+    {
+        ROS_ERROR("the update kb service did not start in 10 seconds");
+        return 1;
+    }
+
+    if (update_kb.call(srv))
     {
         ROS_INFO("update the KB: (%s)", srv.response.success ? "success" : "failed");
     }

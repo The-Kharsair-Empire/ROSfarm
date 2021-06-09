@@ -5,16 +5,16 @@
 	<!-- <arg name="domain_path"	default="$(find rosplan_demos)/common/domain_turtlebot.pddl" />
 	<arg name="problem_path"	default="$(find rosplan_demos)/common/problem_turtlebot.pddl" /> -->
 
-	<!-- <arg name="domain_path"	default="$(find pddl)/common/domain_bot_visiting.pddl" />
-	<arg name="problem_path"	default="$(find pddl)/common/problem_bot_visiting.pddl" /> -->
-
-	<arg name="domain_path"		default="$(find pddl)/common/domain_bot_visiting_temporal.pddl" />
+	<arg name="domain_path"	default="$(find pddl)/common/domain_bot_visiting_temporal.pddl" />
 	<arg name="problem_path"	default="$(find pddl)/common/problem_bot_visiting_temporal.pddl" />
+
+	<!-- <arg name="domain_path"		default="$(find pddl)/common/domain_farmbot.pddl" />
+	<arg name="problem_path"	default="$(find pddl)/common/problem_plant_seeds.pddl" /> -->
 
 	<!-- knowledge base -->
 	<node name="rosplan_knowledge_base" pkg="rosplan_knowledge_base" type="knowledgeBase" respawn="false" output="screen">
 		<param name="domain_path" value="$(arg domain_path)" />
-		<param name="problem_path" value="$(arg problem_path)" /> -->
+		<param name="problem_path" value="$(arg problem_path)" /> 
 		<!-- conditional planning flags -->
 		<param name="use_unknowns" value="false" />
 	</node>
@@ -61,7 +61,7 @@
 	<!-- simulated action -->
 	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
 		<arg name="pddl_action_name" value="move" />
-		<arg name="action_duration" value="15" />
+		<arg name="action_duration" value="10" />
 	</include>
 	<!-- <include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
 		<arg name="pddl_action_name" value="dock" />

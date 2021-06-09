@@ -398,3 +398,12 @@ class Farmbot():
         """
         return self._do_cs("set_servo_angle",
                            {"pin_number": pin_number, "pin_value": angle})
+
+    def toggle_vaccum_on(self, on_off = False):
+        return self.write_pin(9, int(on_off))
+
+    def toggle_light_on(self, on_off = False):
+        return self.write_pin(7, int(on_off))
+
+    def toggle_water_on(self, on_off = False):
+        return self.write_pin(8, int(on_off))

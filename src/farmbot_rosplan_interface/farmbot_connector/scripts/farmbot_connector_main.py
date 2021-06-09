@@ -44,40 +44,69 @@ def get_token(credential_json_file, display=False):
 
     return json.dumps(token)
 
+class Farmbot_Action_Service:
+
+    def move():
+        pass
+
+    
+
 class Handler:
+
     def on_connect(self, bot, mqtt_client):
-        request_id1 = bot.move_absolute(x=10, y=20, z=30)
+        # request_id1 = bot.move_absolute(x=10, y=20, z=30)
 
-        print("MOVE_ABS REQUEST ID: " + request_id1)
+        # print("MOVE_ABS REQUEST ID: " + request_id1)
 
-        request_id2 = bot.send_message("Hello, world!")
+        req_id = bot.send_message("Hello, world!")
 
-        print("SEND_MESSAGE REQUEST ID: " + request_id2)
+        rospy.loginfo("[on_connect]SEND_MESSAGE REQUEST ID: " + req_id)
+
+        req_id = bot.toggle_light_on(True)
+
+        rospy.loginfo("[on_connect]SEND_MESSAGE REQUEST ID: " + req_id)
+        
+        req_id = bot.take_photo()
+
+        rospy.loginfo("[on_connect]SEND_MESSAGE REQUEST ID: " + req_id)
+        pass
 
     def on_change(self, bot, state):
-        print("NEW BOT STATE TREE AVAILABLE:")
-        #print(state)
+        rospy.loginfo("[on_change]NEW BOT STATE TREE AVAILABLE:")
 
-        print("Current position: (%.2f, %.2f, %.2f)" % bot.position())
+        # if not self.written:
+        #     with open('state.json', 'w') as outFile:
+        #         json.dump(state, outFile)
+        #     self.written = not self.written
+        
+        # #print(state)
 
-        pos = state["location_data"]["position"]
-        xyz = (pos["x"], pos["y"], pos["z"])
-        print("Same information as before: " + str(xyz))
+        # print("Current position: (%.2f, %.2f, %.2f)" % bot.position())
+
+        # pos = state["location_data"]["position"]
+        # xyz = (pos["x"], pos["y"], pos["z"])
+        # print("Same information as before: " + str(xyz))
+        pass
 
     def on_log(self, bot, log):
-        print("New message from FarmBot: " + log['message'])
+        rospy.loginfo("[on_log]New message from FarmBot: " + log['message'])
+        pass
 
     def on_response(self, bot, response):
-        print("ID of successful request: " + response.id)
+        rospy.loginfo("[on_response]ID of successful request: " + response.id)
+        pass
 
     def on_error(self, bot, response):
-        print("ID of failed request: " + response.id)
+        rospy.logwarn("[on_error]ID of failed request: " + response.id)
 
-        print("Reason(s) for failure: " + str(response.errors))
+        rospy.logwarn("[on_error]Reason(s) for failure: " + str(response.errors))
+        pass
 
 
 
 def farmbot_setup():
+
+    rospy.loginfo("[console info]: getting credential")
 
     token = get_token(rospy.get_param('~credential_file'), False)
 
@@ -95,26 +124,36 @@ def farmbot_setup():
 def main():
     rospy.init_node('farmbot_connector')
 
-    print("[console info]: getting credential")
-
-    token = get_token(rospy.get_param('~credential_file'), False)
-
-
-    print("[console info]: farmbot_connector node started ")
+    rospy.loginfo("[console info]: farmbot_connector node started ")
 
     bot = farmbot_setup()
 
-    print("[console info]: Connected to farmbot")
+    # print("Current position: (%.2f, %.2f, %.2f)" % bot.position())
+
+    # print()
+    # print("robot state: {}".format(bot.state))
+
+    # bot.toggle_light_on(True)
+
+    # print("light toggled on")
+    # # bot.take_photo()
+    
+
+    # rospy.loginfo("[console info]: Connected to farmbot")
     
     
-    rospy.spin()
+    # rospy.spin()
 
 
 def test():
 
-    rospy.init_node('test_node')
+    # rospy.init_node('test_node')
     
-    rospy.spin()
+    # rospy.spin()
+
+    # bot = farmbot_setup()
+    pass
 
 if __name__ == '__main__':
     main()
+    # test()
