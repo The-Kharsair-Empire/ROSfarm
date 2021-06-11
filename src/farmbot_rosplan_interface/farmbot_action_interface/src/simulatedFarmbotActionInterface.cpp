@@ -1,6 +1,5 @@
 #include "farmbot_action_interface/simulatedFarmbotActionInterface.h"
 
-
 namespace kharsair {
 
 	/* constructor */
@@ -37,6 +36,12 @@ namespace kharsair {
         if(duration > 0) {
             ros::Rate wait = 1.0 / duration;
             wait.sleep();
+        }
+
+        std::cout << msg->name << std::endl;
+        for (const auto& each: msg->parameters)
+        {
+            std::cout << each.key << " : " << each.value << std::endl;
         }
 
 		// complete the action

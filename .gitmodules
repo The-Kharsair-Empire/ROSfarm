@@ -1,0 +1,3 @@
+[submodule "src/farmbot_rosplan_interface/farmbot_simulator/ROS-TCP-Endpoint"]
+	path = src/farmbot_rosplan_interface/farmbot_simulator/ROS-TCP-Endpoint
+	url = https://github.com/Unity-Technologies/ROS-TCP-Endpoint.git

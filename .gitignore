@@ -5,3 +5,5 @@ __pycache__
 .idea/
 build
 devel
+# .vscode/
+.catkin_tools

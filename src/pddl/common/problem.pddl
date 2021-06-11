@@ -1,24 +1,37 @@
 (define (problem task)
-(:domain d-temporal-bot-visiting)
+(:domain d-farmbot)
 (:objects
-    loc1_1 loc1_2 loc2_1 loc2_2 - place
+    a1 a2 a3 a4 a5 a0 - position
 )
 (:init
-    (connected loc1_1 loc1_2)
-    (connected loc1_2 loc1_1)
-    (connected loc1_2 loc2_1)
-    (connected loc2_1 loc1_2)
-    (connected loc2_1 loc2_2)
-    (connected loc2_2 loc2_1)
+    (farmbot-functioning)
 
-    (robot-functioning)
 
-    (at-robot loc1_1)
+    (farmbot-at a0)
 
-    (visited loc1_1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 )
 (:goal (and
-    (visited loc2_2)
+    (visited a1)
+    (visited a2)
+    (visited a3)
+    (visited a4)
+    (visited a5)
+    (farmbot-at a5)
 ))
 )

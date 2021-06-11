@@ -1,65 +1,91 @@
 #include "farmbot_action_interface/farmbotActionInterface.h"
-#include "farmbot_msgs/ActionInterfaceService.h"
 
 namespace kharsair {
 
-
-
-	/* constructor */
-	FarmbotInterface::FarmbotInterface(ros::NodeHandle &nh) {
-
-        nh.getParam("action_service_name", action_service_root);
-        nh.getParam("pddl_action_name", pddl_action_name);
-        ROS_INFO("Action service root name is: (%s)", action_service_root.c_str());
-        ROS_INFO("For pddl action name: (%s)", pddl_action_name.c_str());
-
-        std::stringstream service_name;
-
-        service_name.str("");
-        service_name << action_service_root << "/" << pddl_action_name;
-
-        ROS_INFO("Action service name (%s)", service_name.str().c_str());
-
-        action_interface_client = nh.serviceClient<farmbot_msgs::ActionInterfaceService>(service_name.str());
-
-        if (!action_interface_client.waitForExistence(ros::Duration(10.0))) 
+    
+    void FarmbotInterface::farmbotFeedbackCallback(const farmbot_msgs::FarmbotFeedback::ConstPtr& msg)
+    {
+        if (pddl_action_name.compare(msg->action_name) == 0) 
         {
-            ROS_ERROR("service (%s) did not show up", service_name.str());
-            return;
-        }
-        else
-        {
-            ROS_INFO("Getting the service: (%s)", service_name.str());
+            farmbot_feedback_content = msg->success;
+            farmbot_feedback_received = true;
         }
         
     }
 
+	/* constructor */
+	FarmbotInterface::FarmbotInterface(ros::NodeHandle &nh) {
+
+        nh.getParam("actual_action_command_topic", actual_action_command_topic);
+        nh.getParam("actual_action_feedback_topic", actual_action_feedback_topic);
+        nh.getParam("pddl_action_name", pddl_action_name);
+        ROS_INFO("The actual command topic name is: (%s)", actual_action_command_topic.c_str());
+        ROS_INFO("For pddl action name: (%s)", pddl_action_name.c_str());
+
+        ROS_INFO("The actial command feedback topic name is : (%s)", actual_action_feedback_topic.c_str());
+
+        pddl_action_command_publisher = nh.advertise<farmbot_msgs::PDDLAction>(actual_action_command_topic, 10);
+        action_feedback_subscriber = nh.subscribe(actual_action_feedback_topic, 1000, &FarmbotInterface::farmbotFeedbackCallback, this);
+        
+
+        ros::Rate loop_rate(1);
+
+        std::stringstream progressBar;
+        progressBar.str("");
+        ROS_INFO("Waiting for farmbot to subscribe to this action interface: [%s]", pddl_action_name.c_str());
+        
+        while (pddl_action_command_publisher.getNumSubscribers() < 1) {
+            progressBar << "===|";
+            loop_rate.sleep();
+        }
+
+        ROS_INFO("%s", progressBar.str().c_str());
+        
+        ROS_INFO("The action (%s) has started", pddl_action_name.c_str());
+
+
+    }
+
 	/* action dispatch callback */
 	bool FarmbotInterface::concreteCallback(const rosplan_dispatch_msgs::ActionDispatch::ConstPtr& msg) {
+        
 
-        // msg->duration is defined in the PDDL domain file
-		// wait for some time, plan-calculated by default
-        // double duration = msg->duration;
-        // if(action_duration >= 0) {
-        //     // use time provided for the simulated action
-        //     duration = action_duration;
-        // }
+        farmbot_msgs::PDDLAction commandMsg;
+        commandMsg.action_name = msg->name;
+        ROS_INFO("Sending msg: action name: (%s)", commandMsg.action_name.c_str());
 
-        // if(action_duration_stddev > 0) {
-           
-        //     std::default_random_engine generator(ros::WallTime::now().toSec());
-        //     std::normal_distribution<double> distribution(duration, action_duration_stddev);
-        //     duration = std::max(distribution(generator), 0.0);
-        // }
+        for (const auto& each: msg->parameters)
+        {
+            commandMsg.parameters.push_back(each.value);
+            ROS_INFO("Parameters: [%s]", each.value.c_str());
+        }
 
-        // ROS_INFO("KCL: (%s) Action completing with probability %g and duration %g", params.name.c_str(), action_probability, duration);
-        // if(duration > 0) {
-        //     ros::Rate wait = 1.0 / duration;
-        //     wait.sleep();
-        // }
+        pddl_action_command_publisher.publish(commandMsg);
 
-		// complete the action
-		return (rand() % 100) <= (100 * 1);
+        ros::Rate loop_rate(5);
+
+
+        std::stringstream progressBar;
+        progressBar.str("");
+
+        ROS_INFO("[%s] action is being dispatched to farmbot, waiting for feedback", pddl_action_name.c_str());
+
+        while (!farmbot_feedback_received)
+        {
+            ros::spinOnce();
+            loop_rate.sleep();
+            progressBar << "===|";
+        }
+
+        ROS_INFO("%s", progressBar.str().c_str());
+
+        farmbot_feedback_received = false;
+
+
+        ROS_INFO("feedback received, the action success? (%s)", farmbot_feedback_content ? "true" : "false");
+
+        return farmbot_feedback_content;
+
 	}
 } // close namespace
 

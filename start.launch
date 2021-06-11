@@ -2,14 +2,14 @@
 <launch>
 
 	<!-- arguments -->
-	<!-- <arg name="domain_path"	default="$(find rosplan_demos)/common/domain_turtlebot.pddl" />
-	<arg name="problem_path"	default="$(find rosplan_demos)/common/problem_turtlebot.pddl" /> -->
+	<!-- <arg name="domain_path"	default="$(find pddl)/common/domain_turtlebot.pddl" />
+	<arg name="problem_path"	default="$(find pddl)/common/problem_turtlebot.pddl" /> -->
 
-	<arg name="domain_path"	default="$(find pddl)/common/domain_bot_visiting_temporal.pddl" />
-	<arg name="problem_path"	default="$(find pddl)/common/problem_bot_visiting_temporal.pddl" />
+	<!-- <arg name="domain_path"	default="$(find pddl)/common/domain_bot_visiting_temporal.pddl" />
+	<arg name="problem_path"	default="$(find pddl)/common/problem_bot_visiting_temporal.pddl" /> -->
 
-	<!-- <arg name="domain_path"		default="$(find pddl)/common/domain_farmbot.pddl" />
-	<arg name="problem_path"	default="$(find pddl)/common/problem_plant_seeds.pddl" /> -->
+	<arg name="domain_path"		default="$(find pddl)/common/domain_farmbot.pddl" />
+	<arg name="problem_path"	default="$(find pddl)/common/test_unity_move_problem.pddl" />
 
 	<!-- knowledge base -->
 	<node name="rosplan_knowledge_base" pkg="rosplan_knowledge_base" type="knowledgeBase" respawn="false" output="screen">
@@ -58,11 +58,31 @@
 	</include>
 
 
-	<!-- simulated action -->
-	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
-		<arg name="pddl_action_name" value="move" />
-		<arg name="action_duration" value="10" />
+	<!-- unity simulation interface -->
+	<include file="$(find unity_connector)/launch/unity_connection.launch" />
+
+	<!-- action interface with rosplan -->
+	<!-- <include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
+		<arg name="pddl_action_name" value="dock" />
 	</include>
+
+	<include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
+		<arg name="pddl_action_name" value="undock" />
+	</include> -->
+
+	<include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
+		<arg name="pddl_action_name" value="move" />
+	</include>
+
+	<!-- <include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
+		<arg name="pddl_action_name" value="localise" />
+	</include>
+
+	<include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
+		<arg name="pddl_action_name" value="goto_waypoint" />
+	</include> -->
+
+	<!-- simulated action -->
 	<!-- <include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
 		<arg name="pddl_action_name" value="dock" />
 		<arg name="action_duration" value="10" />
