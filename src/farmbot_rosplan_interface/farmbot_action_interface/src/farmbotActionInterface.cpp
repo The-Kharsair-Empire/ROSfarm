@@ -10,6 +10,7 @@ namespace kharsair {
             farmbot_feedback_content = msg->success;
             farmbot_feedback_received = true;
         }
+
         
     }
 
@@ -27,7 +28,6 @@ namespace kharsair {
         pddl_action_command_publisher = nh.advertise<farmbot_msgs::PDDLAction>(actual_action_command_topic, 10);
         action_feedback_subscriber = nh.subscribe(actual_action_feedback_topic, 1000, &FarmbotInterface::farmbotFeedbackCallback, this);
         
-
         ros::Rate loop_rate(1);
 
         std::stringstream progressBar;

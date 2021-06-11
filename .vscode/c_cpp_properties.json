@@ -21,7 +21,7 @@
                 //"${workspaceFolder}/src/farmbot_rosplan_interface/farmbot_action_interface/include/farmbot_action_interface",
                 "${workspaceFolder}/src/rosplan/rosplan_knowledge_base/include/**",
                 "${workspaceFolder}/src/rosplan/rosplan_planning_system/include/**",
-                // "${workspaceFolder}/src/rosplan/rosplan_planning_system/include/rosplan_action_interface/**",
+                "${workspaceFolder}/src/rosplan/rosplan_planning_system/include/rosplan_action_interface/",
                 "/usr/include/**",
                 //"${workspaceFolder}/src/farmbot_rosplan_interface/farmbot_action_interface/include",
                 "${workspaceFolder}/devel/.private/farmbot_msgs/include"
