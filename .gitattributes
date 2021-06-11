@@ -1,0 +1,3 @@
+CMakeLists.txt linguist-detectable=false
+*.cmake linguist-detectable=false
+package.xml linguist-detectable=false

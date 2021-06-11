@@ -37,6 +37,7 @@
     (farmbot-at ?x - position)
     (carry-tool ?t - tool)
     (visited ?x - position)
+    (carry-camera)
 
     (tool-at ?x - position ?t - tool)
     (tool-rack-at ?t - tool ?x - position)
@@ -59,10 +60,11 @@
     (watered ?p - plant)
 )
 
-; (:constants
-;     low high - level
-;     seeder sprayhead blade camera soil-sensor - tool
-; )
+(:constants
+    low high - level
+    seeder wateringnozzle weeder soilsensor - tool
+    seedtray - container
+)
 
 
 ; (:functions ;todo: define numeric functions here
@@ -139,13 +141,14 @@
 ;     )
 ; )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; (:action check-need-water
 ;     :parameters (?x - position ?p - plant)
 ;     :precondition (and 
 ;         (not-checked-moisture ?p)
 ;         (farmbot-at ?x)
 ;         (plant-at ?x ?p)
-;         (carry-tool soil-sensor)
+;         (carry-tool soilsensor)
 ;     )
 ;     :effect (and 
 ;         (checked-moisture ?p)
@@ -161,7 +164,7 @@
 ;     :precondition (and 
 ;         (farmbot-at ?x)
 ;         (plant-at ?x ?p)
-;         (carry-tool sprayhead)
+;         (carry-tool wateringnozzle)
 ;         (need-water ?p)
 
 ;     )
