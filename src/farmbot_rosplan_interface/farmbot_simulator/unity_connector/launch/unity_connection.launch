@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 <launch>
-    <rosparam file="$(find unity_connector)/config/params.yaml" command="load"/>
 
+    <param name="/ROS_IP" value="$(env MACHINE_IP)"/>
+    <param name="/ROS_TCP_PORT" value="10000"/>
     <arg name="actual_action_command_topic" default="/farmbot_connector/action"/>
-	<arg name="actual_action_feedback_topic" default="/farmbot_connector/feedback"/>
+	  <arg name="actual_action_feedback_topic" default="/farmbot_connector/feedback"/>
 
 
     <node name="unity_connector_tcp_endpoint" pkg="unity_connector" type="ros_unity_tcp_endpoint.py" args="--wait" output="screen" respawn="true" >
