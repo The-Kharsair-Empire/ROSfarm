@@ -11,20 +11,22 @@
             },
             "includePath": [
                 "/opt/ros/melodic/include/**",
-                "${workspaceFolder}/devel/include/**",
+                //"${workspaceFolder}/devel/include/**",
                 //"${workspaceFolder}/devel/include/**",
                 //"${workspaceFolder}/src/farmbot_rosplan_interface/farmbot_connector/include/**",
                 //"${workspaceFolder}/src/farmbot_rosplan_interface/farmbot_kb_interface/include/**",
                 //"${workspaceFolder}/src/farmbot_rosplan_interface/farmbot_msgs/include/**",
-               // "/mnt/c/Users/IS350F-Sport/Documents/UbuntuWSL/ROSfarm/src/farmbot_rosplan_interface/farmbot_msgs/include/**",
+                // "/mnt/c/Users/IS350F-Sport/Documents/UbuntuWSL/ROSfarm/src/farmbot_rosplan_interface/farmbot_msgs/include/**",
                 "${workspaceFolder}/src/farmbot_rosplan_interface/farmbot_action_interface/include/**",
                 //"${workspaceFolder}/src/farmbot_rosplan_interface/farmbot_action_interface/include/farmbot_action_interface",
                 "${workspaceFolder}/src/rosplan/rosplan_knowledge_base/include/**",
                 "${workspaceFolder}/src/rosplan/rosplan_planning_system/include/**",
-                "${workspaceFolder}/src/rosplan/rosplan_planning_system/include/rosplan_action_interface/",
+                "${workspaceFolder}/src/rosplan/rosplan_planning_system/include/rosplan_action_interface/**",
                 "/usr/include/**",
                 //"${workspaceFolder}/src/farmbot_rosplan_interface/farmbot_action_interface/include",
-                "${workspaceFolder}/devel/.private/farmbot_msgs/include"
+                "${workspaceFolder}/devel/.private/farmbot_msgs/include",
+                "${workspaceFolder}/devel/.private/rosplan_dispatch_msgs/include",
+                "${workspaceFolder}/devel/.private/rosplan_knowledge_msgs/include"
             ],
             "name": "ROS"
         }

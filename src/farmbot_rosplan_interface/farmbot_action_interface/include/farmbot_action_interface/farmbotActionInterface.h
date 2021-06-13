@@ -5,12 +5,12 @@
 #include "farmbot_msgs/PDDLAction.h"
 #include "farmbot_msgs/FarmbotFeedback.h"
 
-
 #ifndef Kharsair_farmbotaction_H
 #define Kharsair_farmbotaction_H
 
 
-namespace kharsair {
+namespace kharsair 
+{
 
 
 	class FarmbotInterface: public KCL_rosplan::RPActionInterface

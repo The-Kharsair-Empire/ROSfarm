@@ -1,6 +1,7 @@
 #include "farmbot_action_interface/farmbotActionInterface.h"
 
-namespace kharsair {
+namespace kharsair 
+{
 
     
     void FarmbotInterface::farmbotFeedbackCallback(const farmbot_msgs::FarmbotFeedback::ConstPtr& msg)
@@ -15,7 +16,8 @@ namespace kharsair {
     }
 
 	/* constructor */
-	FarmbotInterface::FarmbotInterface(ros::NodeHandle &nh) {
+	FarmbotInterface::FarmbotInterface(ros::NodeHandle &nh) 
+    {
 
         nh.getParam("actual_action_command_topic", actual_action_command_topic);
         nh.getParam("actual_action_feedback_topic", actual_action_feedback_topic);
@@ -34,7 +36,8 @@ namespace kharsair {
         progressBar.str("");
         ROS_INFO("Waiting for farmbot to subscribe to this action interface: [%s]", pddl_action_name.c_str());
         
-        while (pddl_action_command_publisher.getNumSubscribers() < 1) {
+        while (pddl_action_command_publisher.getNumSubscribers() < 1) 
+        {
             progressBar << "===|";
             loop_rate.sleep();
         }
@@ -47,7 +50,8 @@ namespace kharsair {
     }
 
 	/* action dispatch callback */
-	bool FarmbotInterface::concreteCallback(const rosplan_dispatch_msgs::ActionDispatch::ConstPtr& msg) {
+	bool FarmbotInterface::concreteCallback(const rosplan_dispatch_msgs::ActionDispatch::ConstPtr& msg) 
+    {
         
 
         farmbot_msgs::PDDLAction commandMsg;
@@ -93,7 +97,8 @@ namespace kharsair {
 	/* Main method */
 	/*-------------*/
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv) 
+{
 
     ros::init(argc, argv, "farmbot_action_interface_client", ros::init_options::AnonymousName);
     ros::NodeHandle nh("~");
