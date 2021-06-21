@@ -1,36 +1,34 @@
 (define (problem p-check-need-watering-all-plants) (:domain d-farmbot)
 (:objects 
     plantA plantB plantC plantD - plant
-    posA posB posC posD posE posF posT posInit posHome - position
+    A1 A2 A3 A4 posE posF home - position
+    carrot basil parsley - plant
 )
 
 (:init
-    (farmbot-at posHome)
+    (farmbot-at home)
+    (farmbot-functioning)
     (tool-mount-free)
-    (tool-at posT soil-sensor)
-    (tool-rack-at soil-sensor posT)
+    (tool-at soilsensorPos soilsensor)
+    (tool-rack-at soilsensorrack soilsensor soilsensorPos)
     
 
-    (plant-at posA plantA )
-    (plant-at posB plantB )
-    (plant-at posC plantC )
-    (plant-at posD plantD )
+    (plant-at A1 carrot )
+    (plant-at A2 basil )
+    (plant-at A3 carrot )
+    (plant-at A4 parsley )
 
-    (not-checked-moisture plantA)
-    (not-checked-moisture plantB)
-    (not-checked-moisture plantC)
-    (not-checked-moisture plantD)
     
 )
 
 (:goal (and
     
-    (checked-moisture plantA)
-    (checked-moisture plantB)
-    (checked-moisture plantC)
-    (checked-moisture plantD)
+    (checked-moisture A1 carrot)
+    (checked-moisture A2 basil)
+    (checked-moisture A3 carrot)
+    (checked-moisture A4 parsley)
     (tool-mount-free)
-    (farmbot-at posHome)
+    (farmbot-at home)
 
     ;todo: put the goal condition here
 ))

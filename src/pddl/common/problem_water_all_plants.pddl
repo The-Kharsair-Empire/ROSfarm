@@ -1,14 +1,15 @@
 (define (problem p-watering-all-plants) (:domain d-farmbot)
 (:objects 
     plantA plantB plantC plantD - plant
-    posA posB posC posD posE posF posT posInit posHome - position
+    posA posB posC posD posE posF  home - position
 )
 
 (:init
-    (farmbot-at posHome)
+    (farmbot-at home)
     (tool-mount-free)
-    (tool-at posT sprayhead)
-    (tool-rack-at sprayhead posT)
+    (tool-at wateringnozzlePos wateringnozzle)
+    (tool-rack-at wateringnozzlerack wateringnozzle wateringnozzlePos)
+    (farmbot-functioning)
     
 
     (plant-at posA plantA )
@@ -16,23 +17,23 @@
     (plant-at posC plantC )
     (plant-at posD plantD )
 
-    (need-water plantB)
-    (need-water plantC)
+    (need-water posB plantB)
+    (need-water posC plantC)
 
-    (not-need-water plantA)
-    (not-need-water plantD)
+    (not-need-water posA plantA)
+    (not-need-water posD plantD)
     
     
 )
 
 (:goal (and
     
-    (watered plantA)
-    (watered plantB)
-    (watered plantC)
-    (watered plantD)
+    (watered posA plantA)
+    (watered posB plantB)
+    (watered posC plantC)
+    (watered posD plantD)
     (tool-mount-free)
-    (farmbot-at posHome)
+    (farmbot-at home)
 
     ;todo: put the goal condition here
 ))

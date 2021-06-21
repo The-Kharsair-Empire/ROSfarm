@@ -8,8 +8,11 @@
 	<!-- <arg name="domain_path"	default="$(find pddl)/common/domain_bot_visiting_temporal.pddl" />
 	<arg name="problem_path"	default="$(find pddl)/common/problem_bot_visiting_temporal.pddl" /> -->
 
+	<!-- <arg name="domain_path"		default="$(find pddl)/common/domain_farmbot.pddl" />
+	<arg name="problem_path"	default="$(find pddl)/common/test_unity_move_problem.pddl" /> -->
+
 	<arg name="domain_path"		default="$(find pddl)/common/domain_farmbot.pddl" />
-	<arg name="problem_path"	default="$(find pddl)/common/test_unity_move_problem.pddl" />
+	<arg name="problem_path"	default="$(find pddl)/common/problem_initial_state.pddl" />
 
 	<!-- knowledge base -->
 	<node name="rosplan_knowledge_base" pkg="rosplan_knowledge_base" type="knowledgeBase" respawn="false" output="screen">
@@ -62,38 +65,76 @@
 	<include file="$(find unity_connector)/launch/unity_connection.launch" />
 
 	<!-- action interface with rosplan -->
-	<!-- <include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
-		<arg name="pddl_action_name" value="dock" />
-	</include>
-
-	<include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
-		<arg name="pddl_action_name" value="undock" />
-	</include> -->
-
 	<include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
 		<arg name="pddl_action_name" value="move" />
 	</include>
-
-	<!-- <include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
-		<arg name="pddl_action_name" value="localise" />
+	<include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
+		<arg name="pddl_action_name" value="pick_up_tool" />
+	</include>
+	<include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
+		<arg name="pddl_action_name" value="put_down_tool" />
+	</include>
+	<include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
+		<arg name="pddl_action_name" value="pick_up_seed" />
+	</include>
+	<include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
+		<arg name="pddl_action_name" value="place_seed" />
+	</include>
+	<include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
+		<arg name="pddl_action_name" value="check_need_water" />
+	</include>
+	<include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
+		<arg name="pddl_action_name" value="water_plant" />
+	</include>
+	<include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
+		<arg name="pddl_action_name" value="skip_water_plant" />
+	</include>
+	<include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
+		<arg name="pddl_action_name" value="drop_seed" />
 	</include>
 
-	<include file="$(find farmbot_action_interface)/launch/farmbot_action.launch" >
-		<arg name="pddl_action_name" value="goto_waypoint" />
-	</include> -->
+
+
+
+	
+
 
 	<!-- simulated action -->
 	<!-- <include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
-		<arg name="pddl_action_name" value="dock" />
-		<arg name="action_duration" value="10" />
-	</include>
-	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
-		<arg name="pddl_action_name" value="localise" />
+		<arg name="pddl_action_name" value="move" />
 		<arg name="action_duration" value="1" />
 	</include>
 	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
-		<arg name="pddl_action_name" value="goto_waypoint" />
-		<arg name="action_duration" value="4" />
+		<arg name="pddl_action_name" value="pick_up_tool" />
+		<arg name="action_duration" value="1" />
+	</include>
+	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
+		<arg name="pddl_action_name" value="put_down_tool" />
+		<arg name="action_duration" value="1" />
+	</include>
+	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
+		<arg name="pddl_action_name" value="drop_seed" />
+		<arg name="action_duration" value="1" />
+	</include>
+	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
+		<arg name="pddl_action_name" value="pick_up_seed" />
+		<arg name="action_duration" value="1" />
+	</include>
+	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
+		<arg name="pddl_action_name" value="place_seed" />
+		<arg name="action_duration" value="1" />
+	</include>
+	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
+		<arg name="pddl_action_name" value="check_need_water" />
+		<arg name="action_duration" value="1" />
+	</include>
+	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
+		<arg name="pddl_action_name" value="water_plant" />
+		<arg name="action_duration" value="1" />
+	</include>
+	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
+		<arg name="pddl_action_name" value="skip_water_plant" />
+		<arg name="action_duration" value="1" />
 	</include> -->
 
 </launch>
