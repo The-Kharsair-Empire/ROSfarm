@@ -1,6 +1,7 @@
-(define (domain d-farmbot)
+(define (domain t-d-farmbot)
 
-
+; this domain is tried with popf planner, simple and esterel parser and dispatchers
+; esterel dispatcher is not a mush since here we are not having concurrent actions
 (:requirements 
     :strips 
     :fluents 
@@ -201,7 +202,7 @@
         (at end (and 
             (carry-seed ?s)
             (decrease (remaining-seed ?c ?s) 1)
-            ; (not (container-has ?c ?s)) ; why uncommenting this cause the planner to freeze
+    
         ))
     )
 )

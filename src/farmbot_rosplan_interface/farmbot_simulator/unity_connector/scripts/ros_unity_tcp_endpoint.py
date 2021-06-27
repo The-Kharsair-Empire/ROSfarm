@@ -2,6 +2,7 @@
 
 from ros_tcp_endpoint import TcpServer, RosPublisher, RosSubscriber, RosService, UnityService
 from farmbot_msgs.msg import FarmbotPosition, FarmbotFeedback, PDDLAction
+from rosplan_knowledge_msgs.srv import KnowledgeUpdateService
 import rospy
 from rospy.timer import sleep
 
@@ -46,6 +47,7 @@ def start_endpoint():
 
     actual_action_command_topic = rospy.get_param("actual_action_command_topic", "/farmbot_connector/action")
     actual_action_feedback_topic = rospy.get_param("actual_action_feedback_topic", "/farmbot_connector/feedback")
+    
 
     rospy.loginfo("the action command topic is: {}".format(actual_action_command_topic))
     rospy.loginfo("the action feedback topic is: {}".format(actual_action_feedback_topic))
@@ -59,7 +61,8 @@ def start_endpoint():
 
     tcp_server.start({
         actual_action_feedback_topic : RosPublisher(actual_action_feedback_topic, FarmbotFeedback, queue_size=10),
-        actual_action_command_topic : RosSubscriber(actual_action_command_topic, PDDLAction, tcp_server)
+        actual_action_command_topic : RosSubscriber(actual_action_command_topic, PDDLAction, tcp_server),
+        "/rosplan_knowledge_base/update" : RosService("/rosplan_knowledge_base/update", KnowledgeUpdateService)
     })
 
     rospy.loginfo('the endpoint is ready')

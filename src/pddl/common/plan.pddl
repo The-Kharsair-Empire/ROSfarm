@@ -19,40 +19,46 @@ Errors: 0, warnings: 18
 /mnt/c/Users/IS350F-Sport/Documents/UbuntuWSL/ROSfarm/src/pddl/common/problem.pddl: line: 9: Warning: Re-declaration of symbol in same scope: high
 /mnt/c/Users/IS350F-Sport/Documents/UbuntuWSL/ROSfarm/src/pddl/common/problem.pddl: line: 10: Warning: Re-declaration of symbol in same scope: seedtray
 /mnt/c/Users/IS350F-Sport/Documents/UbuntuWSL/ROSfarm/src/pddl/common/problem.pddl: line: 11: Warning: Re-declaration of symbol in same scope: seedbin
-Number of literals: 76
+Number of literals: 64
 Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
 Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
 Have identified that bigger values of (remaining-seed seedtray carrotseed) are preferable
 Have identified that bigger values of (remaining-seed seedtray basilseed) are preferable
 Have identified that bigger values of (remaining-seed seedtray parsleyseed) are preferable
 [01;34mNo analytic limits found, not considering limit effects of goal-only operators[00m
-96% of the ground temporal actions in this problem are compression-safe
-Initial heuristic = 18.000
-b (17.000 | 70.001)b (16.000 | 140.001)b (15.000 | 140.001)b (14.000 | 210.001)b (13.000 | 270.001)b (12.000 | 340.002)b (11.000 | 340.002)b (10.000 | 480.002)b (9.000 | 480.002)b (8.000 | 550.002)b (7.000 | 610.002)b (6.000 | 680.003)b (5.000 | 680.003)b (4.000 | 740.003)b (3.000 | 750.003)b (2.000 | 810.003)b (1.000 | 880.004);;;; Solution Found
-; States evaluated: 79
-; Cost: 940.004
+Initial heuristic = 7.000
+b (6.000 | 0.000)b (5.000 | 0.000)b (4.000 | 0.000)b (3.000 | 0.003)b (2.000 | 0.004)b (1.000 | 0.006)
+; Plan found with metric 0.007
+; States evaluated so far: 20
+; Time 0.03
+0.000: (skip_water_plant a1 carrot)  [0.001]
+0.000: (skip_water_plant a5 carrot)  [0.001]
+0.000: (skip_water_plant a6 parsley)  [0.001]
+0.000: (move home wateringnozzlepos)  [0.001]
+0.001: (pick_up_tool wateringnozzlepos wateringnozzle)  [0.001]
+0.002: (move wateringnozzlepos a3)  [0.001]
+0.003: (water_plant a3 basil)  [0.001]
+0.004: (move a3 home)  [0.001]
+0.005: (move home wateringnozzlepos)  [0.001]
+0.006: (put_down_tool wateringnozzlepos wateringnozzle wateringnozzlerack)  [0.001]
+0.007: (move wateringnozzlepos home)  [0.001]
+
+ * All goal deadlines now no later than 0.007
+
+Resorting to best-first search
+b (6.000 | 0.000)b (5.000 | 0.000)b (4.000 | 0.000)b (3.000 | 0.003)b (2.000 | 0.004)b (1.000 | 0.005)
+; Plan found with metric 0.006
+; States evaluated so far: 160
 ; Time 0.05
-0.000: (move home seederpos)  [60.000]
-60.001: (pick_up_tool seederpos seeder)  [10.000]
-70.001: (move seederpos posseedtray)  [60.000]
-130.001: (pick_up_seed posseedtray basilseed seedtray)  [10.000]
-140.001: (move posseedtray a3)  [60.000]
-200.001: (place_seed a3 basilseed basil)  [10.000]
-210.001: (move a3 a1)  [60.000]
-270.002: (move a1 posseedtray)  [60.000]
-330.002: (pick_up_seed posseedtray carrotseed seedtray)  [10.000]
-340.002: (move posseedtray a1)  [60.000]
-400.002: (place_seed a1 carrotseed carrot)  [10.000]
-410.002: (move a1 posseedtray)  [60.000]
-470.002: (pick_up_seed posseedtray carrotseed seedtray)  [10.000]
-480.002: (move posseedtray a5)  [60.000]
-540.002: (place_seed a5 carrotseed carrot)  [10.000]
-550.002: (move a5 a6)  [60.000]
-610.003: (move a6 posseedtray)  [60.000]
-670.003: (pick_up_seed posseedtray parsleyseed seedtray)  [10.000]
-680.003: (move posseedtray a6)  [60.000]
-740.003: (place_seed a6 parsleyseed parsley)  [10.000]
-750.003: (move a6 home)  [60.000]
-810.004: (move home seederpos)  [60.000]
-870.004: (put_down_tool seederpos seeder seederrack)  [10.000]
-880.004: (move seederpos home)  [60.000]
+0.000: (skip_water_plant a1 carrot)  [0.001]
+0.000: (skip_water_plant a5 carrot)  [0.001]
+0.000: (skip_water_plant a6 parsley)  [0.001]
+0.000: (move home wateringnozzlepos)  [0.001]
+0.001: (pick_up_tool wateringnozzlepos wateringnozzle)  [0.001]
+0.002: (move wateringnozzlepos a3)  [0.001]
+0.003: (water_plant a3 basil)  [0.001]
+0.004: (move a3 wateringnozzlepos)  [0.001]
+0.005: (put_down_tool wateringnozzlepos wateringnozzle wateringnozzlerack)  [0.001]
+0.006: (move wateringnozzlepos home)  [0.001]
+
+ * All goal deadlines now no later than 0.006

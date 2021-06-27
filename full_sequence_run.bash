@@ -1,4 +1,4 @@
-#!bin/bash
+# !bin/bash
 
 update_type="update_type:"
 knowledge="knowledge:"
@@ -19,6 +19,7 @@ function run() {
     rosservice call /rosplan_planner_interface/planning_server
 
     echo "Executing the Plan"
+    # rosservice call /rosplan_parsing_interface/parse_plan_from_file "plan_path: '/mnt/c/Users/IS350F-Sport/Documents/UbuntuWSL/ROSfarm/src/pddl/common/plan.pddl'"
     rosservice call /rosplan_parsing_interface/parse_plan
     rosservice call /rosplan_plan_dispatcher/dispatch_plan
 }
@@ -83,27 +84,27 @@ do
 
 
 
-    if [[ $i == "a1" ]] || [[ $i == "a5" ]];
-    then
-    update_type="$update_type
-    - 0";
-    knowledge="$knowledge
-    - knowledge_type: 1
-      attribute_name: 'need-water'
-      values:
-      - {key: 'x', value: $i}
-      - {key: 'p', value: ${arr[$i]}}";
+    # if [[ $i == "a1" ]] || [[ $i == "a5" ]];
+    # then
+    # update_type="$update_type
+    # - 0";
+    # knowledge="$knowledge
+    # - knowledge_type: 1
+    #   attribute_name: 'need-water'
+    #   values:
+    #   - {key: 'x', value: $i}
+    #   - {key: 'p', value: ${arr[$i]}}";
 
-    else
-    update_type="$update_type
-    - 0";
-    knowledge="$knowledge
-    - knowledge_type: 1
-      attribute_name: 'not-need-water'
-      values:
-      - {key: 'x', value: $i}
-      - {key: 'p', value: ${arr[$i]}}";
-    fi;
+    # else
+    # update_type="$update_type
+    # - 0";
+    # knowledge="$knowledge
+    # - knowledge_type: 1
+    #   attribute_name: 'not-need-water'
+    #   values:
+    #   - {key: 'x', value: $i}
+    #   - {key: 'p', value: ${arr[$i]}}";
+    # fi;
 
 done
 

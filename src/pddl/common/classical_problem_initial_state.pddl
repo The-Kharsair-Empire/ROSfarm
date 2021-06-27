@@ -1,4 +1,4 @@
-(define (problem initial-state) (:domain d-farmbot)
+(define (problem initial-state) (:domain c-d-farmbot)
 (:objects 
     home A1 A2 A3 A4 A5 A6 A7 - position
     carrotSeed basilSeed parsleySeed - seed
