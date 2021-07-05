@@ -36,7 +36,7 @@ for i in ${!arr[@]};
 do
     # echo $i ${arr[$i]}
     update_type="$update_type
-    - 3";
+    - 3"; #remove
     knowledge="$knowledge
     - knowledge_type: 1
       attribute_name: 'plant-at'

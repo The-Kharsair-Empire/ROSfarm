@@ -49,10 +49,10 @@
 )
 
 (:goal (and
-    (plant-at A1 carrot)
-    (plant-at A3 basil)
-    (plant-at A5 carrot)
-    (plant-at A6 parsley)
+    ; (plant-at A1 carrot)
+    ; (plant-at A3 basil)
+    ; (plant-at A5 carrot)
+    ; (plant-at A6 parsley)
     (farmbot-at home)
     (tool-mount-free)
     ; (visited A1)

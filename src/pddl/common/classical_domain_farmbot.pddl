@@ -41,7 +41,7 @@
     (tool-mount-free)
     (farmbot-at ?x - position)
     (carry-tool ?t - tool)
-    (visited ?x - position)
+    ; (visited ?x - position)
     (carry-camera)
 
     (tool-at ?x - position ?t - tool)
@@ -51,6 +51,8 @@
     (plant-at ?x - position ?p - plant)
 
     (weed-at ?x - position ?w - weed)
+    (no-weed-at ?x - position)
+    (check-weed-exist ?x - position)
 
     (carry-seed ?s - seed)
     (seeder-free)
@@ -259,15 +261,33 @@
 )
 
 
-; (:action detect_weed
-;     :parameters (?x - position ?w - weed)
-;     :precondition (and 
-;         (carry-tool camera)
-;         (farmbot-at ?x)
+(:action detect_weed
+    :parameters (?x - position)
+    :precondition (and 
+        (carry-camera)
+        (farmbot-at ?x)
+        (farmbot-functioning)
+        
 
-;     )
-;     :effect (and )
-; )
+    )
+    :effect (and 
+        (check-weed-exist ?x)
+    )
+)
+
+(:action remove_weed 
+    :parameters (?x - position ?w - weed) ; while updating the kb, we have to add the instance ?w - w1, w2, w3 etc.
+    :precondition (and 
+        (farmbot-at ?x)
+        (farmbot-functioning)
+        (carry-tool weeder)
+        (weed-at ?x ?w)
+    )
+    :effect (and 
+        (no-weed-at ?x)
+    )
+)
+
 
 
 )
