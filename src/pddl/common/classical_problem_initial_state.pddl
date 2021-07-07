@@ -53,8 +53,8 @@
     ; (plant-at A3 basil)
     ; (plant-at A5 carrot)
     ; (plant-at A6 parsley)
-    (farmbot-at home)
-    (tool-mount-free)
+    ; (farmbot-at home)
+    ; (tool-mount-free)
     ; (visited A1)
     ; (visited A2)
     ;todo: put the goal condition here

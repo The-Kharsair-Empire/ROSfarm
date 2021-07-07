@@ -1,0 +1,309 @@
+{
+	"States" : [
+		"PS_NO_PLANT",
+		"PS_PLANT_EXISTED",
+		"PS_WATER_PLANT"
+	],
+	"Transitions" : [
+		{
+			"name" : "D1",
+			"StartState" : "PS_NO_PLANT",
+			"EndState" : "PS_PLANT_EXISTED",
+			"Guards" : [
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "a1"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "a3"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "a5"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "a6"
+					}
+				}
+			],
+			"MaintenanceGoals" : [],
+			"AchievementGoals" : [
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a1",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a3",
+						"p" : "basil"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a5",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a6",
+						"p" : "parsley"
+					}
+
+				}
+			]
+		},
+
+		{
+			"name" : "D2",
+			"StartState" : "PS_PLANT_EXISTED",
+			"EndState" : "PS_PLANT_EXISTED",
+			"Guards" : [
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "a2"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "a7"
+					}
+				}
+			],
+			"MaintenanceGoals" : [],
+			"AchievementGoals" : [
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a2",
+						"p" : "parsley"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a7",
+						"p" : "carrot"
+					}
+				}
+			]
+		},
+
+		{
+			"name" : "D3",
+			"StartState" : "PS_PLANT_EXISTED",
+			"EndState" : "PS_WATER_PLANT",
+			"Guards" : [],
+			"MaintenanceGoals" : [
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a1",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a3",
+						"p" : "basil"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a5",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a6",
+						"p" : "parsley"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a2",
+						"p" : "parsley"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a7",
+						"p" : "carrot"
+					}
+				}
+			],
+			"AchievementGoals" : [
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "a1",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "a3",
+						"p" : "basil"
+					}
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "a5",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "a6",
+						"p" : "parsley"
+					}
+
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "a2",
+						"p" : "parsley"
+					}
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "a7",
+						"p" : "carrot"
+					}
+				}
+			]
+		},
+
+		{
+			"name" : "D4",
+			"StartState" : "PS_WATER_PLANT",
+			"EndState" : "PS_PLANT_EXISTED",
+			"Guards" : [],
+			"MaintenanceGoals" : [
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a1",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a3",
+						"p" : "basil"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a5",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a6",
+						"p" : "parsley"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a2",
+						"p" : "parsley"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "a7",
+						"p" : "carrot"
+					}
+				}
+			],
+			"AchievementGoals" : [
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "a1",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "a3",
+						"p" : "basil"
+					}
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "a5",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "a6",
+						"p" : "parsley"
+					}
+
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "a2",
+						"p" : "parsley"
+					}
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "a7",
+						"p" : "carrot"
+					}
+				}
+			]
+		}
+	]
+
+}

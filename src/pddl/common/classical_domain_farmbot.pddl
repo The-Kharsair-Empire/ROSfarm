@@ -232,6 +232,7 @@
     :effect (and 
 
         (not (need-water ?x ?p))
+        (not (checked-moisture ?x ?p))
 
         (watered ?x ?p)
    
@@ -254,6 +255,7 @@
     :effect (and 
 
         (not (not-need-water ?x ?p)) ; really need this?
+        (not (checked-moisture ?x ?p))
 
         (watered ?x ?p)
 

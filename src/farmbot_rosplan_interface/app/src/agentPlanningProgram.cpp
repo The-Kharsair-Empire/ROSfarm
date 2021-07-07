@@ -1,11 +1,12 @@
 
 #include "app/agentPlanningProgram.h"
+#include "app/APPparser.h"
 
 
 namespace kharsair::APP
 {
 
-    class AgentPlanningProgram
+    class cAgentPlanningProgram
     {
 
     private:
@@ -21,7 +22,7 @@ namespace kharsair::APP
 
         ros::ServiceClient parse_plan_service = nh.serviceClient<std_srvs::Empty>("/rosplan_parsing_interface/parse_plan");
 
-        ros::ServiceClient dispatch_plan_service = nh.serviceClient<std_srvs::Empty>("/rosplan_plan_dispatcher/dispatch_plan");
+        ros::ServiceClient dispatch_plan_service = nh.serviceClient<rosplan_dispatch_msgs::DispatchService>("/rosplan_plan_dispatcher/dispatch_plan");
 
         enum class PROGRAM_STATE
         {
@@ -33,7 +34,17 @@ namespace kharsair::APP
             PS_TIME_TO_CHECK_MOISTURE,
             PS_NEED_TO_WATER
 
-        } currentState, NextState;
+        } currentState, nextState;
+
+        struct TRANSITION
+        {
+            std::vector<int32_t> guard;
+            std::vector<int32_t> maintenance;
+            std::vector<int32_t> achievement;
+
+        };
+
+        TRANSITION d1;
 
    
 
@@ -45,8 +56,23 @@ namespace kharsair::APP
 
 
     public:
-        AgentPlanningProgram(ros::NodeHandle &nh)
+        cAgentPlanningProgram(ros::NodeHandle &nh)
         {
+            std::string fileName;
+            nh.getParam("APP_Definition_File", fileName);
+
+            AgentPlanningProgram APP;
+            bool success = parse_from_file(fileName, &APP);
+
+            if (!success)
+            {
+                ROS_ERROR("Did not construct APP");
+                return;
+
+            }
+
+            std::cout << APP << std::endl;
+
             currentState = PROGRAM_STATE::PS_INIT;
             this->nh = nh;
             if (!update_kb_array_service.waitForExistence(ros::Duration(10.0)))
@@ -92,6 +118,7 @@ namespace kharsair::APP
         {
 
             std_srvs::Empty empty;
+            rosplan_dispatch_msgs::DispatchService dispatchService;
         
             ROS_INFO("Generating a Problem");
             if (problem_generation_service.call(empty))
@@ -126,7 +153,7 @@ namespace kharsair::APP
                 return false;
             }
 
-            if (dispatch_plan_service.call(empty))
+            if (dispatch_plan_service.call(dispatchService))
             {
                 ROS_INFO("==== Finished dispatching plan");
             }
@@ -268,6 +295,14 @@ namespace kharsair::APP
 
         void run()
         {
+            switch(currentState)
+            {
+                case PROGRAM_STATE::PS_NO_PLANT :
+                {
+
+                }
+                break;
+            }
             // ros::spin();
             // while (1)
             // {
@@ -289,10 +324,9 @@ namespace kharsair::APP
 
 int main(int argc, char **argv)
 {
-    std::cout << "gg!" << std::endl;
     ros::init(argc, argv, "agent_planning_program", ros::init_options::AnonymousName);
     ros::NodeHandle nh("~");
-    kharsair::APP::AgentPlanningProgram app(nh);
+    kharsair::APP::cAgentPlanningProgram app(nh);
     app.full_sequence_run();
     // app.transitioning();
     

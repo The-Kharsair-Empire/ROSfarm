@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- arguments -->
+	<arg name="APP_Definition_File"	default="$(find app)/res/AgentPlanningProgram.json" />
+    <arg name="node_name"	default="APP" />
+
+	<node name="agent_planning_program_$(arg node_name)" pkg="app" type="APP" respawn="false" output="screen">
+		<param name="APP_Definition_File"		 value="$(arg APP_Definition_File)" />
+	</node>
+
+</launch>

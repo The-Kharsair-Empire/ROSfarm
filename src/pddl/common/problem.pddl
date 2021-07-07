@@ -67,11 +67,9 @@
 
 )
 (:goal (and
-    (farmbot-at home)
-    (tool-mount-free)
-    (watered a1 carrot)
-    (watered a3 basil)
-    (watered a5 carrot)
-    (watered a6 parsley)
+    (plant-at a1 carrot)
+    (plant-at a3 basil)
+    (plant-at a5 carrot)
+    (plant-at a6 parsley)
 ))
 )
