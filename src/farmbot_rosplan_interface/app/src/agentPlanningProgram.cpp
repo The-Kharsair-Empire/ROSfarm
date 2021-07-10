@@ -1,334 +1,193 @@
-
-#include "app/agentPlanningProgram.h"
-#include "app/APPparser.h"
-
+#include "app/AgentPlanningProgram.h"
 
 namespace kharsair::APP
 {
 
-    class cAgentPlanningProgram
+    AgentPlanningProgram::AgentPlanningProgram(std::string fileName)
+    {
+        parse_from_file(fileName);
+    }
+
+
+
+    std::ostream& operator<<(std::ostream& os, AgentPlanningProgram::Predicate& predicate)
+    {
+        os << "\t\t\tpredicate name : " << predicate.predicate_name << '\n';
+        os << "\t\t\tparameters : { \n ";
+        for (auto& each_parameter : predicate.parameters)
+            os << "\t\t\t\t" << each_parameter.key << ':' << each_parameter.value << '\n';
+        os << "\t\t\t}" << '\n';
+
+        return os;
+    }
+
+
+    std::ostream& operator<<(std::ostream& os, const AgentPlanningProgram& app)
+    {
+        os << "APP: " << '\n' << "States: " << '\n';
+        for (auto& each_state: app.m_states)
+        {
+            os << "\tState name: " << each_state.first << " : " << each_state.second->state_name << '\n';
+            os << "\t\t" << "Available Transition : \n" ;
+            for (auto& e_a_t : each_state.second->available_transition)
+            {
+                os << "\t\t\t" << e_a_t->transition_name << ' ' << e_a_t->start_state->state_name << " =====> " << e_a_t->end_state->state_name << '\n';
+            }
+        }
+
+
+        os << '\n' << "Transition: " << '\n';
+        for (auto& each_transition: app.m_transitions)
+            os << *each_transition << "\n\n";
+        os << '\n';
+        return os;
+    }
+
+    std::ostream& operator<<(std::ostream& os, AgentPlanningProgram::APP_Transition& transition)
+    {
+        os << '\t' << "name : " << transition.transition_name << '\n';
+        os << '\t' << "startState : " << transition.start_state->state_name << '\n';
+        os << '\t' << "endState : " << transition.end_state->state_name << '\n';
+
+        os << '\t' << "guards : [\n"  ;
+        for (auto& each_guard: transition.guards)
+            os << each_guard;
+        os << "\t\t]" << '\n';
+
+        os << '\t' << "maintenance goals : [\n"  ;
+        for (auto& each_guard: transition.maintenance_goals)
+            os << each_guard;
+        os << "\t\t]" << '\n';
+
+        os << '\t' << "achievement goals : [\n"  ;
+        for (auto& each_guard: transition.achievement_goals)
+            os << each_guard;
+        os << "\t\t]" << '\n';
+        return os;
+
+    }
+
+    void AgentPlanningProgram::help_populate_predicates(std::vector<Predicate> &predicate_list, rapidjson::Value &predicate_values)
+    {
+        assert(predicate_values.IsArray());
+        for (rapidjson::SizeType i = 0; i < predicate_values.Size(); i ++)
+        {
+            assert(predicate_values[i].IsObject());
+            Predicate temp;
+            temp.predicate_name = predicate_values[i]["predicate"].GetString();
+
+            assert(predicate_values[i]["parameters"].IsObject());
+
+            for (rapidjson::Value::ConstMemberIterator itr = predicate_values[i]["parameters"].MemberBegin(); itr != predicate_values[i]["parameters"].MemberEnd(); ++itr)
+            {
+                vStr2d v;
+                v.key = itr->name.GetString();
+                v.value = predicate_values[i]["parameters"][itr->name.GetString()].GetString();
+                temp.parameters.push_back(v);
+
+            }
+
+            predicate_list.push_back(temp);
+
+        }
+
+    }
+
+    bool AgentPlanningProgram::parse_from_file(std::string& fileName)
     {
 
-    private:
-        ros::NodeHandle nh;
+        std::ifstream file(fileName);
 
-
-        ros::ServiceClient update_kb_array_service = nh.serviceClient<rosplan_knowledge_msgs::KnowledgeUpdateServiceArray>("/rosplan_knowledge_base/update_array");
-        ros::ServiceClient update_kb_service = nh.serviceClient<rosplan_knowledge_msgs::KnowledgeUpdateService>("/rosplan_knowledge_base/update");
-
-        ros::ServiceClient problem_generation_service = nh.serviceClient<std_srvs::Empty>("/rosplan_problem_interface/problem_generation_server");
-
-        ros::ServiceClient planning_service = nh.serviceClient<std_srvs::Empty>("/rosplan_planner_interface/planning_server");
-
-        ros::ServiceClient parse_plan_service = nh.serviceClient<std_srvs::Empty>("/rosplan_parsing_interface/parse_plan");
-
-        ros::ServiceClient dispatch_plan_service = nh.serviceClient<rosplan_dispatch_msgs::DispatchService>("/rosplan_plan_dispatcher/dispatch_plan");
-
-        enum class PROGRAM_STATE
+        if (!file.is_open())
         {
-            PS_INIT,
+            std::cerr << "Error !" << std::endl;
 
-            PS_NO_PLANT,
-            PS_PLANTS_EXISTED,
+            return false;
+        }
 
-            PS_TIME_TO_CHECK_MOISTURE,
-            PS_NEED_TO_WATER
+        std::string content((std::istreambuf_iterator<char>(file)),
+                            (std::istreambuf_iterator<char>()));
 
-        } currentState, nextState;
 
-        struct TRANSITION
+        rapidjson::Document document;
+
+        if (document.Parse(content.c_str()).HasParseError())
         {
-            std::vector<int32_t> guard;
-            std::vector<int32_t> maintenance;
-            std::vector<int32_t> achievement;
+            std::cout << "json parsing error!" << std::endl;
+            return false;
+        }
 
-        };
+        rapidjson::Value& States = document["States"];
+        rapidjson::Value& Transitions = document["Transitions"];
 
-        TRANSITION d1;
-
-   
-
-        std::vector<rosplan_knowledge_msgs::KnowledgeItem> clearUpGoalsQueue;
-
-        std::string pos[4] = {"a1", "a3", "a5", "a6"};
-        std::string plants[4] = {"carrot", "basil", "carrot", "parsley"};
-        int size = 4;
+        assert(States.IsArray());
+        assert(Transitions.IsArray());
 
 
-    public:
-        cAgentPlanningProgram(ros::NodeHandle &nh)
+        for (rapidjson::SizeType i = 0; i < States.Size(); i ++)
         {
-            std::string fileName;
-            nh.getParam("APP_Definition_File", fileName);
+            assert(States[i].IsString());
+            auto* temp = new APP_State;
+            temp->state_name = States[i].GetString();
+            temp->available_transition = {};
+            m_states.insert({States[i].GetString(), temp});
+        }
 
-            AgentPlanningProgram APP;
-            bool success = parse_from_file(fileName, &APP);
+        std::cout << "finish adding states" << '\n';
 
-            if (!success)
-            {
-                ROS_ERROR("Did not construct APP");
-                return;
+        for (rapidjson::SizeType j = 0; j < Transitions.Size(); j ++)
+        {
+            assert(Transitions[j].IsObject());
+            auto *temp = new APP_Transition;
+            temp->transition_name = Transitions[j]["name"].GetString();
 
-            }
+            temp->start_state = m_states.find(Transitions[j]["StartState"].GetString())->second;
+            temp->end_state = m_states.find(Transitions[j]["EndState"].GetString())->second;
 
-            std::cout << APP << std::endl;
+            temp->guards = {}; temp->maintenance_goals = {}; temp->achievement_goals = {};
 
-            currentState = PROGRAM_STATE::PS_INIT;
-            this->nh = nh;
-            if (!update_kb_array_service.waitForExistence(ros::Duration(10.0)))
-            {
-                ROS_ERROR("the update kb array service did not start in 10 seconds");
-                return;
-            }
+            help_populate_predicates(temp->guards, Transitions[j]["Guards"]);
+            help_populate_predicates(temp->maintenance_goals, Transitions[j]["MaintenanceGoals"]);
+            help_populate_predicates(temp->achievement_goals, Transitions[j]["AchievementGoals"]);
 
-            if (!update_kb_service.waitForExistence(ros::Duration(10.0)))
-            {
-                ROS_ERROR("the update kb service did not start in 10 seconds");
-                return;
-            }
+            temp->start_state->available_transition.push_back(temp);
 
-            if (!problem_generation_service.waitForExistence(ros::Duration(10.0)))
-            {
-                ROS_ERROR("the problem generation service did not start in 10 seconds");
-                return;
-            }
+            m_transitions.push_back(temp);
 
-            if (!planning_service.waitForExistence(ros::Duration(10.0)))
-            {
-                ROS_ERROR("the planning service did not start in 10 seconds");
-                return;
-            }
 
-            if (!parse_plan_service.waitForExistence(ros::Duration(10.0)))
-            {
-                ROS_ERROR("the parse plan service did not start in 10 seconds");
-                return;
-            }
 
-            if (!dispatch_plan_service.waitForExistence(ros::Duration(10.0)))
-            {
-                ROS_ERROR("the dispatch plan service did not start in 10 seconds");
-                return;
-            }
+
+        }
+
+        std::cout << "finish adding transition" << '\n';
+
+        return true;
+
+    }
+
+    AgentPlanningProgram::~AgentPlanningProgram()
+    {
+
+        for (auto &each_state: m_states)
+        {
+
+            delete each_state.second;
+        }
+
+        for (auto& each_transition: m_transitions)
+        {
+            delete each_transition;
+        }
+
+        delete m_current_state_ptr;
+
+        std::cout << "APP deleted" << "\n";
+
+    }
+
 
     
-        }
-
-        bool runOnce()
-        {
-
-            std_srvs::Empty empty;
-            rosplan_dispatch_msgs::DispatchService dispatchService;
-        
-            ROS_INFO("Generating a Problem");
-            if (problem_generation_service.call(empty))
-            {
-                ROS_INFO("==== Finished generating problem");
-            } 
-            else 
-            {
-                ROS_ERROR("==== Failed generating problem");
-                return false;
-            }
-
-            ROS_INFO("Planning");
-            if (planning_service.call(empty))
-            {
-                ROS_INFO("==== Finished planning");
-            }
-            else 
-            {
-                ROS_ERROR("==== Failed planing ");
-                return false;
-            }
-
-            ROS_INFO("Executing the Plan");
-            if (parse_plan_service.call(empty))
-            {
-                ROS_INFO("==== Finished parsing plan");
-            }
-            else 
-            {
-                ROS_ERROR("==== Failed parsing plan");
-                return false;
-            }
-
-            if (dispatch_plan_service.call(dispatchService))
-            {
-                ROS_INFO("==== Finished dispatching plan");
-            }
-            else 
-            {
-                ROS_ERROR("==== Failed dispatching plan");
-                return false;
-            }
-
-            return true;
-        }
-
-        bool clearUpGoals()
-        {   
-            rosplan_knowledge_msgs::KnowledgeUpdateServiceArray srv;
-
-            for (auto& old_goal_item: clearUpGoalsQueue)
-            {
-                srv.request.update_type.push_back(rosplan_knowledge_msgs::KnowledgeUpdateServiceArrayRequest::REMOVE_GOAL);
-                srv.request.knowledge.push_back(old_goal_item);
-
-            }
-
-            if (update_kb_array_service.call(srv))
-            {
-                ROS_INFO("update the KB to Remove Old Goals: (%s)", srv.response.success ? "success" : "failed");
-            }
-            else
-            {
-                ROS_ERROR("Failed to call service to remove old goals");
-                return false;
-            }
-
-            clearUpGoalsQueue.clear();
-            return true;
-
-        }
-
-        void full_sequence_run()
-        {
-            rosplan_knowledge_msgs::KnowledgeUpdateServiceArray srv;
-
-            for (int i=0; i < size; i++)
-            {
-                srv.request.update_type.push_back(rosplan_knowledge_msgs::KnowledgeUpdateServiceArrayRequest::ADD_GOAL);
-                rosplan_knowledge_msgs::KnowledgeItem item;
-                item.knowledge_type = rosplan_knowledge_msgs::KnowledgeItem::FACT;
-                item.attribute_name = "plant-at";
-                diagnostic_msgs::KeyValue kv1, kv2; 
-                kv1.key = 'x'; kv1.value = pos[i];
-                kv2.key = 'p'; kv2.value = plants[i];
-                item.values.push_back(kv1); item.values.push_back(kv2);
-                srv.request.knowledge.push_back(item);
-
-                clearUpGoalsQueue.push_back(item);
-            }
-
-            if (update_kb_array_service.call(srv))
-            {
-                ROS_INFO("update the KB to Add plant-at goals: (%s)", srv.response.success ? "success" : "failed");
-            }
-            else
-            {
-                ROS_ERROR("Failed to call service");
-                return;
-            }
-
-            runOnce();
-
-            clearUpGoals();
-
- 
-            srv.request.update_type.clear();
-            srv.request.knowledge.clear();
-
-            for (int i=0; i < size; i++)
-            {
-                
-                srv.request.update_type.push_back(rosplan_knowledge_msgs::KnowledgeUpdateServiceArrayRequest::ADD_GOAL);
-                rosplan_knowledge_msgs::KnowledgeItem item;
-                item.knowledge_type = rosplan_knowledge_msgs::KnowledgeItem::FACT;
-                item.attribute_name = "checked-moisture";
-                diagnostic_msgs::KeyValue kv1, kv2; 
-                kv1.key = 'x'; kv1.value = pos[i];
-                kv2.key = 'p'; kv2.value = plants[i];
-                item.values.push_back(kv1); item.values.push_back(kv2);
-                srv.request.knowledge.push_back(item);
-
-                clearUpGoalsQueue.push_back(item);
-            }
-
-            if (update_kb_array_service.call(srv))
-            {
-                ROS_INFO("update the KB to Add checked-moisture goals: (%s)", srv.response.success ? "success" : "failed");
-            }
-            else
-            {
-                ROS_ERROR("Failed to call service");
-                return;
-            }
-
-            runOnce();
-
-            clearUpGoals();
-
-            srv.request.update_type.clear();
-            srv.request.knowledge.clear();
-
-            for (int i=0; i < size; i++)
-            {
-                srv.request.update_type.push_back(rosplan_knowledge_msgs::KnowledgeUpdateServiceArrayRequest::ADD_GOAL);
-                rosplan_knowledge_msgs::KnowledgeItem item;
-                item.knowledge_type = rosplan_knowledge_msgs::KnowledgeItem::FACT;
-                item.attribute_name = "watered";
-                diagnostic_msgs::KeyValue kv1, kv2; 
-                kv1.key = 'x'; kv1.value = pos[i];
-                kv2.key = 'p'; kv2.value = plants[i];
-                item.values.push_back(kv1); item.values.push_back(kv2);
-                srv.request.knowledge.push_back(item);
-
-                clearUpGoalsQueue.push_back(item);
-            }
-
-            if (update_kb_array_service.call(srv))
-            {
-                ROS_INFO("update the KB to Add watered goals: (%s)", srv.response.success ? "success" : "failed");
-            }
-            else
-            {
-                ROS_ERROR("Failed to call service");
-                return;
-            }
-
-            runOnce();
-
-
-
-        }
-
-        void run()
-        {
-            switch(currentState)
-            {
-                case PROGRAM_STATE::PS_NO_PLANT :
-                {
-
-                }
-                break;
-            }
-            // ros::spin();
-            // while (1)
-            // {
-                
-            // }
-            return;
-        }
-
-        
-
-
-
-
-
-    };
 }
 
 
 
-int main(int argc, char **argv)
-{
-    ros::init(argc, argv, "agent_planning_program", ros::init_options::AnonymousName);
-    ros::NodeHandle nh("~");
-    kharsair::APP::cAgentPlanningProgram app(nh);
-    app.full_sequence_run();
-    // app.transitioning();
-    
-    return 0;
-}

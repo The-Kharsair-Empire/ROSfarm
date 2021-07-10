@@ -27,10 +27,11 @@
                 //"${workspaceFolder}/src/farmbot_rosplan_interface/farmbot_action_interface/include",
                 "${workspaceFolder}/devel/.private/farmbot_msgs/include",
                 "${workspaceFolder}/devel/.private/rosplan_dispatch_msgs/include",
-                "${workspaceFolder}/devel/.private/rosplan_knowledge_msgs/include",
-                "${workspaceFolder}/devel/.private/app/include"
+                "${workspaceFolder}/devel/.private/rosplan_knowledge_msgs/include"
             ],
-            "name": "ROS"
+            "name": "ROS",
+            "compilerPath": "/usr/bin/g++",
+            "cppStandard": "c++14"
         }
     ],
     "version": 4

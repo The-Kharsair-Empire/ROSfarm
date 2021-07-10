@@ -13,31 +13,30 @@
 (:init
     (farmbot-functioning)
 
-    (tool-mount-free)
 
-    (farmbot-at home)
+    (farmbot-at a5)
 
+    (carry-tool soilsensor)
 
     (carry-camera)
 
-    (tool-at seederpos seeder)
     (tool-at wateringnozzlepos wateringnozzle)
     (tool-at weederpos weeder)
-    (tool-at soilsensorpos soilsensor)
+    (tool-at seederpos seeder)
 
     (tool-rack-at seederrack seeder seederpos)
     (tool-rack-at wateringnozzlerack wateringnozzle wateringnozzlepos)
     (tool-rack-at weederrack weeder weederpos)
     (tool-rack-at soilsensorrack soilsensor soilsensorpos)
 
-    (no-plant-at a1)
     (no-plant-at a2)
-    (no-plant-at a3)
     (no-plant-at a4)
-    (no-plant-at a5)
-    (no-plant-at a6)
     (no-plant-at a7)
 
+    (plant-at a3 basil)
+    (plant-at a1 carrot)
+    (plant-at a5 carrot)
+    (plant-at a6 parsley)
 
 
 
@@ -57,8 +56,16 @@
 
     (bin-at posbin seedbin)
 
+    (checked-moisture a6 parsley)
+    (checked-moisture a1 carrot)
+    (checked-moisture a3 basil)
+    (checked-moisture a5 carrot)
 
+    (need-water a6 parsley)
+    (need-water a1 carrot)
 
+    (not-need-water a3 basil)
+    (not-need-water a5 carrot)
 
 
     (= (remaining-seed seedtray carrotseed) 2)
@@ -67,9 +74,9 @@
 
 )
 (:goal (and
-    (plant-at a1 carrot)
-    (plant-at a3 basil)
-    (plant-at a5 carrot)
-    (plant-at a6 parsley)
+    (watered a1 carrot)
+    (watered a3 basil)
+    (watered a5 carrot)
+    (watered a6 parsley)
 ))
 )
