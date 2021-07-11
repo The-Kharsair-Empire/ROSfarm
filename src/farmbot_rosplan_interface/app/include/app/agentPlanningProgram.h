@@ -4,17 +4,19 @@
 #include <fstream>
 #include <vector>
 #include <map>
+#include <memory>
 
 #ifndef Kharsair_APP_H
 #define Kharsair_APP_H
 
 namespace kharsair::APP
 {
+    
     class AgentPlanningProgram
     {
 
     public:
-        explicit AgentPlanningProgram(std::string fileName);
+        explicit AgentPlanningProgram(std::string fileName, bool& construct_app_success);
         ~AgentPlanningProgram();
 
     private:
@@ -54,7 +56,7 @@ namespace kharsair::APP
         APP_State* m_current_state_ptr = nullptr;
 
         std::map<std::string, APP_State*> m_states;
-        //std::vector<APP_State> m_states;
+
         std::vector<APP_Transition*> m_transitions;
 
     public:
@@ -69,6 +71,11 @@ namespace kharsair::APP
         static void help_populate_predicates(std::vector<Predicate> &predicate_list, rapidjson::Value &predicate_values);
 
         bool parse_from_file(std::string& fileName);
+
+        void set_current_state(const std::string& state_name);
+
+        APP_State* get_current_state();
+
 
     };
 }

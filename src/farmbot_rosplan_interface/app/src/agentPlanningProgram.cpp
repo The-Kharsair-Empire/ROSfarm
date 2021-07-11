@@ -3,9 +3,9 @@
 namespace kharsair::APP
 {
 
-    AgentPlanningProgram::AgentPlanningProgram(std::string fileName)
+    AgentPlanningProgram::AgentPlanningProgram(std::string fileName, bool& construct_app_success)
     {
-        parse_from_file(fileName);
+        construct_app_success = parse_from_file(fileName);
     }
 
 
@@ -131,6 +131,9 @@ namespace kharsair::APP
             temp->state_name = States[i].GetString();
             temp->available_transition = {};
             m_states.insert({States[i].GetString(), temp});
+
+            if (i == 0) // first state in the state list of the json file is the default initial state
+                m_current_state_ptr = temp;
         }
 
         std::cout << "finish adding states" << '\n';
@@ -164,6 +167,17 @@ namespace kharsair::APP
         return true;
 
     }
+
+    void AgentPlanningProgram::set_current_state(const std::string& state_name)
+    {
+        m_current_state_ptr = m_states.find(state_name)->second;
+    }
+
+    AgentPlanningProgram::APP_State* AgentPlanningProgram::get_current_state()
+    {
+        return m_current_state_ptr;
+    }
+
 
     AgentPlanningProgram::~AgentPlanningProgram()
     {

@@ -21,6 +21,8 @@ namespace kharsair::APP
     private:
         ros::NodeHandle nh;
 
+        std::unique_ptr<AgentPlanningProgram> agent_planning_program;
+
 
         ros::ServiceClient update_kb_array_service = nh.serviceClient<rosplan_knowledge_msgs::KnowledgeUpdateServiceArray>("/rosplan_knowledge_base/update_array");
         ros::ServiceClient update_kb_service = nh.serviceClient<rosplan_knowledge_msgs::KnowledgeUpdateService>("/rosplan_knowledge_base/update");
@@ -70,23 +72,19 @@ namespace kharsair::APP
             std::string fileName;
             nh.getParam("APP_Definition_File", fileName);
 
-            // AgentPlanningProgram APP(fileName);
-            
-            auto* app = new AgentPlanningProgram(fileName);
+            bool construct_success;
+            agent_planning_program = std::make_unique<AgentPlanningProgram>(fileName, construct_success);
+            // new AgentPlanningProgram(fileName, construct_success);
 
-            // AgentPlanningProgram APP;
-            // bool success = parse_from_file(fileName, &APP);
 
-            // if (!success)
-            // {
-            //     ROS_ERROR("Did not construct APP");
-            //     return;
+            if (!construct_success)
+            {
+                ROS_ERROR("Did not construct APP");
+                return;
 
-            // }
+            } else std::cout << *agent_planning_program << std::endl;
 
-            // std::cout << APP << std::endl;
-
-            delete app;
+            // delete agent_planning_program;
 
             currentState = PROGRAM_STATE::PS_INIT;
             this->nh = nh;

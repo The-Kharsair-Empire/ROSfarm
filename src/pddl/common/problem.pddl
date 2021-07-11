@@ -61,11 +61,11 @@
     (checked-moisture a3 basil)
     (checked-moisture a5 carrot)
 
-    (need-water a6 parsley)
     (need-water a1 carrot)
+    (need-water a5 carrot)
 
+    (not-need-water a6 parsley)
     (not-need-water a3 basil)
-    (not-need-water a5 carrot)
 
 
     (= (remaining-seed seedtray carrotseed) 2)
