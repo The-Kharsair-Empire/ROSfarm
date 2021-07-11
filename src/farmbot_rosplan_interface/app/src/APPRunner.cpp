@@ -24,16 +24,7 @@ namespace kharsair::APP
         std::unique_ptr<AgentPlanningProgram> agent_planning_program;
 
 
-        ros::ServiceClient update_kb_array_service = nh.serviceClient<rosplan_knowledge_msgs::KnowledgeUpdateServiceArray>("/rosplan_knowledge_base/update_array");
-        ros::ServiceClient update_kb_service = nh.serviceClient<rosplan_knowledge_msgs::KnowledgeUpdateService>("/rosplan_knowledge_base/update");
-
-        ros::ServiceClient problem_generation_service = nh.serviceClient<std_srvs::Empty>("/rosplan_problem_interface/problem_generation_server");
-
-        ros::ServiceClient planning_service = nh.serviceClient<std_srvs::Empty>("/rosplan_planner_interface/planning_server");
-
-        ros::ServiceClient parse_plan_service = nh.serviceClient<std_srvs::Empty>("/rosplan_parsing_interface/parse_plan");
-
-        ros::ServiceClient dispatch_plan_service = nh.serviceClient<rosplan_dispatch_msgs::DispatchService>("/rosplan_plan_dispatcher/dispatch_plan");
+        ros::ServiceClient update_kb_array_service,  update_kb_service, problem_generation_service, planning_service, parse_plan_service, dispatch_plan_service, query_kb_service; 
 
         enum class PROGRAM_STATE
         {
@@ -69,12 +60,25 @@ namespace kharsair::APP
     public:
         APPManager(ros::NodeHandle &nh)
         {
+            update_kb_array_service = nh.serviceClient<rosplan_knowledge_msgs::KnowledgeUpdateServiceArray>("/rosplan_knowledge_base/update_array");
+            update_kb_service = nh.serviceClient<rosplan_knowledge_msgs::KnowledgeUpdateService>("/rosplan_knowledge_base/update");
+
+            problem_generation_service = nh.serviceClient<std_srvs::Empty>("/rosplan_problem_interface/problem_generation_server");
+
+            planning_service = nh.serviceClient<std_srvs::Empty>("/rosplan_planner_interface/planning_server");
+
+            parse_plan_service = nh.serviceClient<std_srvs::Empty>("/rosplan_parsing_interface/parse_plan");
+
+            dispatch_plan_service = nh.serviceClient<rosplan_dispatch_msgs::DispatchService>("/rosplan_plan_dispatcher/dispatch_plan");
+
+            query_kb_service = nh.serviceClient<rosplan_knowledge_msgs::KnowledgeQueryService>("/rosplan_knowledge_base/query_state");
+
             std::string fileName;
             nh.getParam("APP_Definition_File", fileName);
 
             bool construct_success;
             agent_planning_program = std::make_unique<AgentPlanningProgram>(fileName, construct_success);
-            // new AgentPlanningProgram(fileName, construct_success);
+    
 
 
             if (!construct_success)
@@ -84,9 +88,11 @@ namespace kharsair::APP
 
             } else std::cout << *agent_planning_program << std::endl;
 
-            // delete agent_planning_program;
+            
 
-            currentState = PROGRAM_STATE::PS_INIT;
+            // currentState = PROGRAM_STATE::PS_INIT;
+            
+
             this->nh = nh;
             if (!update_kb_array_service.waitForExistence(ros::Duration(10.0)))
             {
@@ -121,6 +127,11 @@ namespace kharsair::APP
             if (!dispatch_plan_service.waitForExistence(ros::Duration(10.0)))
             {
                 ROS_ERROR("the dispatch plan service did not start in 10 seconds");
+                return;
+            }
+            if(!query_kb_service.waitForExistence(ros::Duration(10.0)))
+            {
+                ROS_ERROR("the query kb service did not start in 10 seconds");
                 return;
             }
 
@@ -204,6 +215,20 @@ namespace kharsair::APP
             return true;
 
         }
+
+        bool transition(std::string priority_transition = "")
+        {
+            for (auto& each_transition: agent_planning_program->get_current_state()->available_transition)
+            {   
+                each_transition->guards;
+
+            }
+
+            return false;
+            
+
+        }
+
 
         void full_sequence_run()
         {
