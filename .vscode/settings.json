@@ -73,7 +73,9 @@
         "set": "cpp",
         "string": "cpp",
         "string_view": "cpp",
-        "forward_list": "cpp"
+        "forward_list": "cpp",
+        "condition_variable": "cpp",
+        "mutex": "cpp"
     },
     "C_Cpp.errorSquiggles": "Enabled"
 }

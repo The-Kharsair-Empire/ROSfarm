@@ -210,6 +210,7 @@
     :effect (and 
  
         (checked-moisture ?x ?p)
+        (not (watered ?x ?p)); this is very important to enable the APP to cycle between two state, otherwise the goal will already be satisfied the second time it comes back to water plan
 
     )
 
@@ -254,7 +255,7 @@
     )
     :effect (and 
 
-        (not (not-need-water ?x ?p)) ; really need this?
+        (not (not-need-water ?x ?p)) 
         (not (checked-moisture ?x ?p))
 
         (watered ?x ?p)

@@ -246,8 +246,12 @@
         ))
     )
     :effect (and 
+        (at start (and
+            (not (watered ?x ?p))
+        ))
         (at end (and 
             (checked-moisture ?x ?p)
+            
         ))
     )
 

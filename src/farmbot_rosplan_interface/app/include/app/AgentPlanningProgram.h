@@ -19,6 +19,8 @@ namespace kharsair::APP
         explicit AgentPlanningProgram(std::string fileName, bool& construct_app_success);
         ~AgentPlanningProgram();
 
+        friend class APPManager;
+
     private:
 
         struct vStr2d
@@ -66,6 +68,8 @@ namespace kharsair::APP
         friend std::ostream& operator<<(std::ostream& os, const AgentPlanningProgram& app);
 
         friend std::ostream& operator<<(std::ostream& os, APP_Transition& transition);
+
+        
 
 
         static void help_populate_predicates(std::vector<Predicate> &predicate_list, rapidjson::Value &predicate_values);

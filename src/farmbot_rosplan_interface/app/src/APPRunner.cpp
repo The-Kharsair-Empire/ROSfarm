@@ -26,30 +26,6 @@ namespace kharsair::APP
 
         ros::ServiceClient update_kb_array_service,  update_kb_service, problem_generation_service, planning_service, parse_plan_service, dispatch_plan_service, query_kb_service; 
 
-        enum class PROGRAM_STATE
-        {
-            PS_INIT,
-
-            PS_NO_PLANT,
-            PS_PLANTS_EXISTED,
-
-            PS_TIME_TO_CHECK_MOISTURE,
-            PS_NEED_TO_WATER
-
-        } currentState, nextState;
-
-        struct TRANSITION
-        {
-            std::vector<int32_t> guard;
-            std::vector<int32_t> maintenance;
-            std::vector<int32_t> achievement;
-
-        };
-
-        TRANSITION d1;
-
-   
-
         std::vector<rosplan_knowledge_msgs::KnowledgeItem> clearUpGoalsQueue;
 
         std::string pos[4] = {"a1", "a3", "a5", "a6"};
@@ -216,20 +192,196 @@ namespace kharsair::APP
 
         }
 
-        bool transition(std::string priority_transition = "")
+        bool transition(std::string& priority_transition = (std::string&) "")
         {
+
+            AgentPlanningProgram::APP_Transition* selected_transition;
             for (auto& each_transition: agent_planning_program->get_current_state()->available_transition)
             {   
-                each_transition->guards;
+
+                rosplan_knowledge_msgs::KnowledgeQueryService query;
+
+                for (auto& each_guard: each_transition->guards)
+                {
+                    //std::cout << "guard" << " ";
+                    rosplan_knowledge_msgs::KnowledgeItem guard_item;
+                    guard_item.knowledge_type = rosplan_knowledge_msgs::KnowledgeItem::FACT;
+                    guard_item.attribute_name = each_guard.predicate_name;
+
+                    for (auto& each_parameters: each_guard.parameters)
+                    {
+                        diagnostic_msgs::KeyValue kv;
+                        kv.key = each_parameters.key;
+                        kv.value = each_parameters.value;
+                        guard_item.values.push_back(kv);
+                    }
+                    query.request.knowledge.push_back(guard_item);
+
+                }
+
+                for (auto& each_m_goal: each_transition->maintenance_goals)
+                {
+                    //std::cout << "maintenance" << " ";
+                    rosplan_knowledge_msgs::KnowledgeItem maintenance_goal_item;
+                    maintenance_goal_item.knowledge_type = rosplan_knowledge_msgs::KnowledgeItem::FACT;
+                    maintenance_goal_item.attribute_name = each_m_goal.predicate_name;
+
+                    for (auto& each_parameters: each_m_goal.parameters)
+                    {
+                        diagnostic_msgs::KeyValue kv;
+                        kv.key = each_parameters.key;
+                        kv.value = each_parameters.value;
+                        maintenance_goal_item.values.push_back(kv);
+                    }
+                    query.request.knowledge.push_back(maintenance_goal_item);
+
+                }
+
+                if (query_kb_service.call(query))
+                {
+
+                    bool satisfy_flag = true;
+
+                    for (std::uint8_t result: query.response.results)
+                    {
+                        if (result == 0)
+                        {
+                            satisfy_flag = false;
+                            break;
+                        }
+                    }
+                    if (satisfy_flag)
+                    {
+                        selected_transition = each_transition;
+                        ROS_INFO("Transition precondition or invariant satisfied for state (%s) on transition (%s)", agent_planning_program->get_current_state()->state_name.c_str(), each_transition->transition_name.c_str());
+                        goto stop_checking_transition;
+                    }
+                    else
+                    {
+                        ROS_INFO("Transition precondition or invariant NOT satisfied for state (%s) on transition (%s)", agent_planning_program->get_current_state()->state_name.c_str(), each_transition->transition_name.c_str());
+                    }
+                    
+
+                }
+                else
+                {
+                    ROS_ERROR("Failed to call service to check guard before transition for state (%s) on transition (%s)", agent_planning_program->get_current_state()->state_name.c_str(), each_transition->transition_name.c_str());
+                    return false;
+                }
+                
+            }
+
+stop_checking_transition:
+
+            rosplan_knowledge_msgs::KnowledgeUpdateServiceArray srv;
+
+            for (auto& each_goal: selected_transition->achievement_goals)
+            {
+
+                srv.request.update_type.push_back(rosplan_knowledge_msgs::KnowledgeUpdateServiceArrayRequest::ADD_GOAL);
+                rosplan_knowledge_msgs::KnowledgeItem item;
+                item.knowledge_type = rosplan_knowledge_msgs::KnowledgeItem::FACT;
+                item.attribute_name = each_goal.predicate_name;
+                for (auto& each_parameters: each_goal.parameters)
+                {
+                    diagnostic_msgs::KeyValue kv;
+                    kv.key = each_parameters.key;
+                    kv.value = each_parameters.value;
+                    item.values.push_back(kv);
+                }
+     
+                srv.request.knowledge.push_back(item);
+
+                clearUpGoalsQueue.push_back(item);
+            }
+
+            if (update_kb_array_service.call(srv))
+            {
+                ROS_INFO("update the KB to Add plant-at goals: (%s)", srv.response.success ? "success" : "failed");
+            }
+            else
+            {
+                ROS_ERROR("Failed to call service to update goals in knowledge base");
+                return false;
+            }
+
+            if (!runOnce()) 
+            {
+                ROS_ERROR("Run once failed");
+                return false;
+            }
+            if (!clearUpGoals())
+            {
+                ROS_ERROR("clear up goals failed");
+                return false;
 
             }
 
-            return false;
-            
+            rosplan_knowledge_msgs::KnowledgeQueryService query;
 
+            for (auto& each_a_goal: selected_transition->achievement_goals)
+            {
+                rosplan_knowledge_msgs::KnowledgeItem achievement_goal_item;
+                achievement_goal_item.knowledge_type = rosplan_knowledge_msgs::KnowledgeItem::FACT;
+                achievement_goal_item.attribute_name = each_a_goal.predicate_name;
+
+                for (auto& each_parameters: each_a_goal.parameters)
+                {
+                    diagnostic_msgs::KeyValue kv;
+                    kv.key = each_parameters.key;
+                    kv.value = each_parameters.value;
+                    achievement_goal_item.values.push_back(kv);
+                }
+                query.request.knowledge.push_back(achievement_goal_item);
+
+            }
+
+            for (auto& each_m_goal: selected_transition->maintenance_goals)
+            {
+                rosplan_knowledge_msgs::KnowledgeItem maintenance_goal_item;
+                maintenance_goal_item.knowledge_type = rosplan_knowledge_msgs::KnowledgeItem::FACT;
+                maintenance_goal_item.attribute_name = each_m_goal.predicate_name;
+
+                for (auto& each_parameters: each_m_goal.parameters)
+                {
+                    diagnostic_msgs::KeyValue kv;
+                    kv.key = each_parameters.key;
+                    kv.value = each_parameters.value;
+                    maintenance_goal_item.values.push_back(kv);
+                }
+                query.request.knowledge.push_back(maintenance_goal_item);
+
+            }
+
+            if (query_kb_service.call(query))
+            {
+
+                for (std::uint8_t result: query.response.results)
+                {
+                    if (result == 0)
+                    {
+                        ROS_ERROR("Transition failed for state (%s) on transition (%s)", agent_planning_program->get_current_state()->state_name.c_str(), selected_transition->transition_name.c_str());
+                        return false;
+                    }
+                }
+
+                ROS_INFO("Transition succeeded for state (%s) on transition (%s)", agent_planning_program->get_current_state()->state_name.c_str(), selected_transition->transition_name.c_str());
+
+                agent_planning_program->set_current_state(selected_transition->end_state->state_name);
+                return true;
+                
+            }
+            else
+            {
+                ROS_ERROR("Failed to call service to check achievement goal after transition for state (%s) on transition (%s)", agent_planning_program->get_current_state()->state_name.c_str(), selected_transition->transition_name.c_str());
+                return false;
+            }
+
+         
+        
         }
 
-
+/*
         void full_sequence_run()
         {
             rosplan_knowledge_msgs::KnowledgeUpdateServiceArray srv;
@@ -330,23 +482,19 @@ namespace kharsair::APP
 
 
         }
-
+*/
         void run()
         {
-            switch(currentState)
-            {
-                case PROGRAM_STATE::PS_NO_PLANT :
-                {
+            ros::Rate loop_rate(1);
 
-                }
-                break;
+            while (1)
+            {
+                if (!transition()) return;
+
+                loop_rate.sleep();
+
             }
-            // ros::spin();
-            // while (1)
-            // {
-                
-            // }
-            return;
+       
         }
 
     
@@ -361,7 +509,7 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "agent_planning_program", ros::init_options::AnonymousName);
     ros::NodeHandle nh("~");
     kharsair::APP::APPManager app(nh);
-    app.full_sequence_run();
+    app.run();
     // app.transitioning();
     
     return 0;

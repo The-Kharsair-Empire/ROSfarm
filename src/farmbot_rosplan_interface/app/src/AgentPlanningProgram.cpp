@@ -193,8 +193,6 @@ namespace kharsair::APP
             delete each_transition;
         }
 
-        delete m_current_state_ptr;
-
         std::cout << "APP deleted" << "\n";
 
     }
