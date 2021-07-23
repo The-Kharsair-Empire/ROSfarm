@@ -1,4 +1,4 @@
-(define (domain c-d-farmbot)
+(define (domain m-d-farmbot)
 
 ; this domain is tried with popf planner, simple and esterel parser and dispatchers
 ; esterel dispatcher will not work because some action wkll be dispatched concurrently rather than sequentially 
@@ -50,9 +50,10 @@
     (no-plant-at ?x - position)
     (plant-at ?x - position ?p - plant)
 
-    (weed-at ?x - position ?w - weed)
-    (no-weed-at ?x - position)
-    (check-weed-exist ?x - position)
+    (checked-weed-exist ?x - position)
+    (weed-at ?x - position)
+    (weed-removed ?x - position)
+    
 
     (carry-seed ?s - seed)
     (seeder-free)
@@ -80,7 +81,9 @@
 
 
 (:functions
-    (remaining-seed ?c - container ?s - seed)
+    (remaining-seed ?c - container ?s - seed) - number
+   ; (move-distance ?x - position ?y - position)
+    (total-moving-cost) - number
 )
 
 (:action move
@@ -92,6 +95,7 @@
     :effect (and 
         (not (farmbot-at ?x))
         (farmbot-at ?y)
+       ; (increase (total-moving-cost) 10) ;(move-distance ?x ?y)
     )
 )
 
@@ -271,23 +275,25 @@
         (farmbot-at ?x)
         (farmbot-functioning)
         
-
     )
     :effect (and 
-        (check-weed-exist ?x)
+        (not (weed-removed ?x))
+        (checked-weed-exist ?x)
     )
 )
 
 (:action remove_weed 
-    :parameters (?x - position ?w - weed) ; while updating the kb, we have to add the instance ?w - w1, w2, w3 etc.
+    :parameters (?x - position) ; while updating the kb, we have to add the instance ?w - w1, w2, w3 etc.
     :precondition (and 
         (farmbot-at ?x)
         (farmbot-functioning)
         (carry-tool weeder)
-        (weed-at ?x ?w)
+        (weed-at ?x)
     )
     :effect (and 
-        (no-weed-at ?x)
+        (weed-removed ?x)
+        (not (weed-at ?x))
+        (not (checked-weed-exist ?x))
     )
 )
 

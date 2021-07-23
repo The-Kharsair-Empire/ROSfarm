@@ -42,6 +42,7 @@ namespace kharsair::APP
             std::string transition_name;
             APP_State* start_state = nullptr;
             APP_State* end_state = nullptr;
+            int execution_time;
 
             std::vector<Predicate> guards;
             std::vector<Predicate> maintenance_goals;

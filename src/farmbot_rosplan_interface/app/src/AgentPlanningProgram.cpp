@@ -146,6 +146,7 @@ namespace kharsair::APP
 
             temp->start_state = m_states.find(Transitions[j]["StartState"].GetString())->second;
             temp->end_state = m_states.find(Transitions[j]["EndState"].GetString())->second;
+            temp->execution_time = 0;
 
             temp->guards = {}; temp->maintenance_goals = {}; temp->achievement_goals = {};
 
@@ -156,9 +157,6 @@ namespace kharsair::APP
             temp->start_state->available_transition.push_back(temp);
 
             m_transitions.push_back(temp);
-
-
-
 
         }
 

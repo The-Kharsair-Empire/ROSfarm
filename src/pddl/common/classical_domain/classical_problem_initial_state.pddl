@@ -1,6 +1,6 @@
 (define (problem initial-state) (:domain c-d-farmbot)
 (:objects 
-    home A1 A2 A3 A4 A5 A6 A7 - position
+    home A1 A2 A3 A4 A5 A6 A7 A8 A9 B1 B2 B3 B4 B5 B6 B7 B8 B9 - position
     carrotSeed basilSeed parsleySeed - seed
     carrot basil parsley - plant
 )
@@ -27,7 +27,7 @@
     (container-has seedtray basilSeed)
     (container-has seedtray parsleySeed)
 
-    (= (remaining-seed seedtray carrotSeed) 2)
+    (= (remaining-seed seedtray carrotSeed) 10)
     (= (remaining-seed seedtray basilSeed) 1)
     (= (remaining-seed seedtray parsleySeed) 1)
 
@@ -44,6 +44,18 @@
     (no-plant-at A5)
     (no-plant-at A6)
     (no-plant-at A7)
+    (no-plant-at A8)
+    (no-plant-at A9)
+
+    (no-plant-at B1)
+    (no-plant-at B2)
+    (no-plant-at B3)
+    (no-plant-at B4)
+    (no-plant-at B5)
+    (no-plant-at B6)
+    (no-plant-at B7)
+    (no-plant-at B8)
+    (no-plant-at B9)
 
 
 )

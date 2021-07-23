@@ -1,5 +1,6 @@
 #include <ros/ros.h>
 #include <iostream>
+#include <algorithm>
 #include "rosplan_knowledge_msgs/KnowledgeItem.h"
 #include "rosplan_knowledge_msgs/KnowledgeUpdateService.h"
 #include "rosplan_knowledge_msgs/KnowledgeUpdateServiceArray.h"
@@ -194,8 +195,8 @@ namespace kharsair::APP
 
         bool transition(std::string& priority_transition = (std::string&) "")
         {
-
-            AgentPlanningProgram::APP_Transition* selected_transition;
+            std::vector<AgentPlanningProgram::APP_Transition*> valid_transitions;
+            // AgentPlanningProgram::APP_Transition* selected_transition;
             for (auto& each_transition: agent_planning_program->get_current_state()->available_transition)
             {   
 
@@ -252,9 +253,11 @@ namespace kharsair::APP
                     }
                     if (satisfy_flag)
                     {
-                        selected_transition = each_transition;
+
+                        valid_transitions.push_back(each_transition);
+                        // selected_transition = each_transition;
                         ROS_INFO("Transition precondition or invariant satisfied for state (%s) on transition (%s)", agent_planning_program->get_current_state()->state_name.c_str(), each_transition->transition_name.c_str());
-                        goto stop_checking_transition;
+                        // goto stop_checking_transition;
                     }
                     else
                     {
@@ -271,7 +274,21 @@ namespace kharsair::APP
                 
             }
 
-stop_checking_transition:
+            if (valid_transitions.size() == 0)
+            {
+                ROS_ERROR("No Valid Transition at all from state (%s)", agent_planning_program->get_current_state()->state_name.c_str());
+                return false;
+            }
+
+
+            std::sort(valid_transitions.begin(), valid_transitions.end(), [](AgentPlanningProgram::APP_Transition* t1, AgentPlanningProgram::APP_Transition* t2){
+                return t1->execution_time < t2->execution_time;
+            });
+
+
+            AgentPlanningProgram::APP_Transition* selected_transition = valid_transitions[0];
+            selected_transition->execution_time++;
+
 
             rosplan_knowledge_msgs::KnowledgeUpdateServiceArray srv;
 
