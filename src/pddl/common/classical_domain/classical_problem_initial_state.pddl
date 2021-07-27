@@ -6,7 +6,7 @@
 )
 
 (:init
-    (farmbot-functioning)
+    ; (farmbot-functioning)
     (farmbot-at home)
     (carry-camera)
     (tool-mount-free)

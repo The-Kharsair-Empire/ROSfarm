@@ -37,7 +37,7 @@
 ;(:constants )
 
 (:predicates ;todo: define predicates here
-    (farmbot-functioning)
+   ; (farmbot-functioning)
     (tool-mount-free)
     (farmbot-at ?x - position)
     (carry-tool ?t - tool)
@@ -89,7 +89,7 @@
     :parameters (?x ?y - position)
     :precondition (and 
         (farmbot-at ?x)
-        (farmbot-functioning)
+        ;(farmbot-functioning)
     )
     :effect (and 
         (not (farmbot-at ?x))
@@ -105,7 +105,7 @@
         (tool-at ?x ?t)
         (tool-mount-free)
         (farmbot-at ?x)
-        (farmbot-functioning)
+        ;(farmbot-functioning)
   
     )
     :effect (and 
@@ -124,7 +124,7 @@
         (carry-tool ?t)
         (tool-rack-at ?tr ?t ?x)
         (farmbot-at ?x)
-        (farmbot-functioning)
+        ;(farmbot-functioning)
 
     )
     :effect (and 
@@ -143,7 +143,7 @@
 
         (bin-at ?x seedbin)
         (farmbot-at ?x)
-        (farmbot-functioning)
+        ;(farmbot-functioning)
 
     )
     :effect (and 
@@ -163,7 +163,7 @@
         (> (remaining-seed ?c ?s) 0)
         (container-at ?x ?c)
         (farmbot-at ?x)
-        (farmbot-functioning)
+       ; (farmbot-functioning)
         (carry-tool seeder)
     )
     :effect (and 
@@ -183,7 +183,7 @@
 
         (farmbot-at ?x)
         (match-seed-n-plant ?s ?p)
-        (farmbot-functioning)
+       ; (farmbot-functioning)
         (carry-tool seeder)
  
     )
@@ -206,7 +206,7 @@
         (plant-at ?x ?p)
         (farmbot-at ?x)
         (carry-tool soilsensor)
-        (farmbot-functioning)
+      ;  (farmbot-functioning)
 
     )
     :effect (and 
@@ -229,7 +229,7 @@
         (farmbot-at ?x)
         (plant-at ?x ?p)
         (carry-tool wateringnozzle)
-        (farmbot-functioning)
+        ;(farmbot-functioning)
    
     )
     :effect (and 
@@ -251,7 +251,7 @@
         (not-need-water ?x ?p)
 
         (plant-at ?x ?p)
-        (farmbot-functioning)
+        ;(farmbot-functioning)
     
 
     )
@@ -271,7 +271,7 @@
     :precondition (and 
         (carry-camera)
         (farmbot-at ?x)
-        (farmbot-functioning)
+        ;(farmbot-functioning)
         (tool-mount-free)
         (plant-at ?x ?p)
         
@@ -286,7 +286,7 @@
     :parameters (?x - position) ; while updating the kb, we have to add the instance ?w - w1, w2, w3 etc.
     :precondition (and 
         (farmbot-at ?x)
-        (farmbot-functioning)
+       ; (farmbot-functioning)
         (carry-tool weeder)
         (weed-at ?x)
     )
@@ -301,7 +301,7 @@
     :parameters (?x - position) ; while updating the kb, we have to add the instance ?w - w1, w2, w3 etc.
     :precondition (and 
         (farmbot-at ?x)
-        (farmbot-functioning)
+       ; (farmbot-functioning)
         (carry-tool weeder)
         (no-weed-at ?x)
     )

@@ -53,6 +53,7 @@
     (checked-weed-exist ?x - position)
     (weed-at ?x - position)
     (weed-removed ?x - position)
+    (no-weed-at ?x - position)
     
 
     (carry-seed ?s - seed)
@@ -82,7 +83,7 @@
 
 (:functions
     (remaining-seed ?c - container ?s - seed) - number
-   ; (move-distance ?x - position ?y - position)
+    (move-distance ?x - position ?y - position)
     (total-moving-cost) - number
 )
 
@@ -95,7 +96,7 @@
     :effect (and 
         (not (farmbot-at ?x))
         (farmbot-at ?y)
-       ; (increase (total-moving-cost) 10) ;(move-distance ?x ?y)
+        (increase (total-moving-cost) (move-distance ?x ?y))
     )
 )
 
@@ -293,6 +294,21 @@
     :effect (and 
         (weed-removed ?x)
         (not (weed-at ?x))
+        (not (checked-weed-exist ?x))
+    )
+)
+
+(:action skip_remove_weed
+    :parameters (?x - position) ; while updating the kb, we have to add the instance ?w - w1, w2, w3 etc.
+    :precondition (and 
+        (farmbot-at ?x)
+        (farmbot-functioning)
+        (carry-tool weeder)
+        (no-weed-at ?x)
+    )
+    :effect (and 
+        (weed-removed ?x)
+        (not (no-weed-at ?x))
         (not (checked-weed-exist ?x))
     )
 )

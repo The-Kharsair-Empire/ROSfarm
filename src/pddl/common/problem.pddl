@@ -11,17 +11,14 @@
     seedbin - bin
 )
 (:init
-    (farmbot-functioning)
 
-    (tool-mount-free)
+    (farmbot-at b4)
 
-    (farmbot-at b3)
-
+    (carry-tool weeder)
 
     (carry-camera)
 
     (tool-at seederpos seeder)
-    (tool-at weederpos weeder)
     (tool-at soilsensorpos soilsensor)
     (tool-at wateringnozzlepos wateringnozzle)
 
@@ -50,24 +47,16 @@
     (plant-at b3 carrot)
     (plant-at b4 carrot)
 
-    (checked-weed-exist b4)
-    (checked-weed-exist a1)
-    (checked-weed-exist a2)
-    (checked-weed-exist a3)
-    (checked-weed-exist a4)
-    (checked-weed-exist b1)
-    (checked-weed-exist b2)
-    (checked-weed-exist b3)
 
-    (weed-at b4)
-    (weed-at a1)
-    (weed-at a2)
-    (weed-at a3)
-    (weed-at a4)
-    (weed-at b1)
-    (weed-at b2)
-    (weed-at b3)
 
+    (weed-removed b3)
+    (weed-removed a1)
+    (weed-removed a2)
+    (weed-removed a3)
+    (weed-removed a4)
+    (weed-removed b1)
+    (weed-removed b2)
+    (weed-removed b4)
 
 
 
@@ -103,13 +92,13 @@
 
 )
 (:goal (and
-    (weed-removed b1)
-    (weed-removed b2)
-    (weed-removed b3)
-    (weed-removed b4)
-    (weed-removed a1)
-    (weed-removed a2)
-    (weed-removed a3)
-    (weed-removed a4)
+    (checked-moisture b1 carrot)
+    (checked-moisture b2 carrot)
+    (checked-moisture b3 carrot)
+    (checked-moisture b4 carrot)
+    (checked-moisture a1 carrot)
+    (checked-moisture a2 carrot)
+    (checked-moisture a3 carrot)
+    (checked-moisture a4 carrot)
 ))
 )
