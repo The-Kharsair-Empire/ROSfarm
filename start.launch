@@ -11,11 +11,11 @@
 	<!-- <arg name="domain_path"		default="$(find pddl)/common/domain_farmbot.pddl" />
 	<arg name="problem_path"	default="$(find pddl)/common/test_unity_move_problem.pddl" /> -->
 
-	<!-- <arg name="domain_path"		default="$(find pddl)/common/metrical_domain/metric_domain_farmbot.pddl" />
-	<arg name="problem_path"	default="$(find pddl)/common/metrical_domain/metric_problem.pddl" /> -->
+	<arg name="domain_path"		default="$(find pddl)/common/metrical_domain/metric_domain_farmbot.pddl" />
+	<arg name="problem_path"	default="$(find pddl)/common/metrical_domain/metric_problem.pddl" />
 
-	<arg name="domain_path"		default="$(find pddl)/common/classical_domain/classical_domain_farmbot.pddl" />
-	<arg name="problem_path"	default="$(find pddl)/common/classical_domain/classical_problem_initial_state.pddl" />
+	<!-- <arg name="domain_path"		default="$(find pddl)/common/classical_domain/classical_domain_farmbot.pddl" />
+	<arg name="problem_path"	default="$(find pddl)/common/classical_domain/classical_problem_initial_state.pddl" /> -->
 
 	<!-- knowledge base -->
 	<node name="rosplan_knowledge_base" pkg="rosplan_knowledge_base" type="knowledgeBase" respawn="false" output="screen">
@@ -41,12 +41,12 @@
 		<arg name="domain_path"          value="$(arg domain_path)" />
 		<arg name="problem_path"         value="$(find pddl)/common/problem.pddl" />
 		<arg name="data_path"            value="$(find pddl)/common/" />
-		<arg name="planner_command"      value="timeout 10 $(find rosplan_planning_system)/common/bin/popf -n  DOMAIN PROBLEM" />
-		<arg name="planner_interface"    value="popf_planner_interface" />
+		<!-- <arg name="planner_command"      value="timeout 10 $(find rosplan_planning_system)/common/bin/popf -n  DOMAIN PROBLEM" />
+		<arg name="planner_interface"    value="popf_planner_interface" /> -->
 
-<!-- 
+
 		<arg name="planner_interface"    value="ff_planner_interface" />
-		<arg name="planner_command"      value="$(find rosplan_planning_system)/common/bin/Metric-FF -o DOMAIN -f PROBLEM" /> -->
+		<arg name="planner_command"      value="$(find rosplan_planning_system)/common/bin/Metric-FF -o DOMAIN -f PROBLEM" />
 	</include>
 
 
@@ -151,7 +151,18 @@
 	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
 		<arg name="pddl_action_name" value="skip_water_plant" />
 		<arg name="action_duration" value="1" />
-	</include> -->
-
+	</include>
+	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
+		<arg name="pddl_action_name" value="detect_weed" />
+		<arg name="action_duration" value="1" />
+	</include> 
+	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
+		<arg name="pddl_action_name" value="remove_weed" />
+		<arg name="action_duration" value="1" />
+	</include> 
+	<include file="$(find farmbot_action_interface)/launch/farmbot_simulated_action.launch" >
+		<arg name="pddl_action_name" value="skip_remove_weed" />
+		<arg name="action_duration" value="1" />
+	</include>  -->
 </launch>
 

@@ -45,7 +45,7 @@ namespace kharsair {
         }
 
 		// complete the action
-		return (rand() % 100) <= (100 * action_probability);
+		return true;
 	}
 } // close namespace
 

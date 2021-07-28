@@ -69,6 +69,8 @@
     (need-water ?x - position ?p - plant)
     (not-need-water ?x - position ?p - plant)
     (watered ?x - position ?p - plant)
+
+    
 )
 
 (:constants
@@ -81,9 +83,9 @@
 )
 
 
-(:functions
-    (remaining-seed ?c - container ?s - seed)
-)
+; (:functions
+;     (remaining-seed ?c - container ?s - seed)
+; )
 
 (:action move
     :parameters (?x ?y - position)
@@ -160,7 +162,7 @@
 
         (container-has ?c ?s)
         (seeder-free)
-        (> (remaining-seed ?c ?s) 0)
+        ; (> (remaining-seed ?c ?s) 0)
         (container-at ?x ?c)
         (farmbot-at ?x)
        ; (farmbot-functioning)
@@ -170,7 +172,7 @@
 
         (not (seeder-free))
         (carry-seed ?s)
-        (decrease (remaining-seed ?c ?s) 1)
+        ; (decrease (remaining-seed ?c ?s) 1)
     )
 )
 
