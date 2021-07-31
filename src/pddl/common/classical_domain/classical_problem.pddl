@@ -1,7 +1,7 @@
 (define (problem initial-state) (:domain c-d-farmbot)
 (:objects 
     home A1 A2 A3 A4 A5 A6 A7 A8 A9 B1 B2 B3 B4 B5 B6 B7 B8 B9 - position
-    carrotSeed basilSeed parsleySeed - seed
+    carrotSeed1 carrotSeed2 carrotSeed3 carrotSeed4 carrotSeed5 carrotSeed6 carrotSeed7 carrotSeed8 - seed
     carrot basil parsley - plant
 )
 
@@ -23,19 +23,27 @@
     (tool-at soilsensorPos soilsensor)
 
     (container-at posSeedTray seedtray)
-    (container-has seedtray carrotSeed)                              
-    (container-has seedtray basilSeed)
-    (container-has seedtray parsleySeed)
-
-    (= (remaining-seed seedtray carrotSeed) 10)
-    (= (remaining-seed seedtray basilSeed) 1)
-    (= (remaining-seed seedtray parsleySeed) 1)
+    (container-has seedtray carrotSeed1)  
+    (container-has seedtray carrotSeed2)   
+    (container-has seedtray carrotSeed3)                               
+    (container-has seedtray carrotSeed4)   
+    (container-has seedtray carrotSeed5)   
+    (container-has seedtray carrotSeed6)   
+    (container-has seedtray carrotSeed7)   
+    (container-has seedtray carrotSeed8)   
+ 
 
     (bin-at posBin seedbin)
 
-    (match-seed-n-plant carrotSeed carrot)
-    (match-seed-n-plant basilSeed basil)
-    (match-seed-n-plant parsleySeed parsley)
+    (match-seed-type-n-plant-type carrotSeed1 carrot)
+    (match-seed-type-n-plant-type carrotSeed2 carrot)
+    (match-seed-type-n-plant-type carrotSeed3 carrot)
+    (match-seed-type-n-plant-type carrotSeed4 carrot)
+    (match-seed-type-n-plant-type carrotSeed5 carrot)
+    (match-seed-type-n-plant-type carrotSeed6 carrot)
+    (match-seed-type-n-plant-type carrotSeed7 carrot)
+    (match-seed-type-n-plant-type carrotSeed8 carrot)
+
 
     (no-plant-at A1)
     (no-plant-at A2)

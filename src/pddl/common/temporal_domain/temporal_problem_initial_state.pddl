@@ -33,9 +33,9 @@
 
     (bin-at posBin seedbin)
 
-    (match-seed-n-plant carrotSeed carrot)
-    (match-seed-n-plant basilSeed basil)
-    (match-seed-n-plant parsleySeed parsley)
+    (match-seed-type-n-plant-type carrotSeed carrot)
+    (match-seed-type-n-plant-type basilSeed basil)
+    (match-seed-type-n-plant-type parsleySeed parsley)
 
     (no-plant-at A1)
     (no-plant-at A2)

@@ -16,9 +16,9 @@
     (container-has containerA seedA)
     (container-has containerB seedB)
     (container-has containerC seedC)
-    (match-seed-n-plant seedA plantA)
-    (match-seed-n-plant seedB plantB)
-    (match-seed-n-plant seedC plantC)
+    (match-seed-type-n-plant-type seedA plantA)
+    (match-seed-type-n-plant-type seedB plantB)
+    (match-seed-type-n-plant-type seedC plantC)
 
     (tool-at posT seeder)
     (tool-rack-at seeder posT)

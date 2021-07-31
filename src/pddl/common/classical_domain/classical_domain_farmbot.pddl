@@ -6,7 +6,7 @@
 ; the popf is unable to produce optimal plan on the first iteration. However, we can wait for it to iterate on the plan. but it takes time
 (:requirements 
     :strips 
-    :fluents 
+    ; :fluents ;bfws.py will fail if :fluents is enabled
     ; :durative-actions
     :typing 
     ; :timed-initial-literals 
@@ -61,7 +61,7 @@
 
     (container-at ?x - position ?c - container)
     (container-has ?c - container ?s - seed)
-    (match-seed-n-plant ?s - seed ?p - plant)
+    (match-seed-type-n-plant-type ?s - seed ?p - plant)
 
     (bin-at ?x - position ?b - bin)
 
@@ -172,6 +172,7 @@
 
         (not (seeder-free))
         (carry-seed ?s)
+        (not (container-has ?c ?s))
         ; (decrease (remaining-seed ?c ?s) 1)
     )
 )
@@ -184,7 +185,7 @@
         (carry-seed ?s)
 
         (farmbot-at ?x)
-        (match-seed-n-plant ?s ?p)
+        (match-seed-type-n-plant-type ?s ?p)
        ; (farmbot-functioning)
         (carry-tool seeder)
  

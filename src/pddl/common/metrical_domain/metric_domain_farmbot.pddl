@@ -61,7 +61,7 @@
 
     (container-at ?x - position ?c - container)
     (container-has ?c - container ?s - seed)
-    (match-seed-n-plant ?s - seed ?p - plant)
+    (match-seed-type-n-plant-type ?s - seed ?p - plant)
 
     (bin-at ?x - position ?b - bin)
 
@@ -185,7 +185,7 @@
         (carry-seed ?s)
 
         (farmbot-at ?x)
-        (match-seed-n-plant ?s ?p)
+        (match-seed-type-n-plant-type ?s ?p)
         ; (farmbot-functioning)
         (carry-tool seeder)
  

@@ -32,17 +32,17 @@ namespace kharsair
         
         ros::Rate loop_rate(1);
 
-        std::stringstream progressBar;
-        progressBar.str("");
+        // std::stringstream progressBar;
+        // progressBar.str("");
         ROS_INFO("Waiting for farmbot to subscribe to this action interface: [%s]", pddl_action_name.c_str());
         
         while (pddl_action_command_publisher.getNumSubscribers() < 1) 
         {
-            progressBar << "===|";
+            // progressBar << "===|";
             loop_rate.sleep();
         }
 
-        ROS_INFO("%s", progressBar.str().c_str());
+        // ROS_INFO("%s", progressBar.str().c_str());
         
         ROS_INFO("The action (%s) has started", pddl_action_name.c_str());
 
@@ -69,8 +69,8 @@ namespace kharsair
         ros::Rate loop_rate(5);
 
 
-        std::stringstream progressBar;
-        progressBar.str("");
+        // std::stringstream progressBar;
+        // progressBar.str("");
 
         ROS_INFO("[%s] action is being dispatched to farmbot, waiting for feedback", pddl_action_name.c_str());
 
@@ -78,10 +78,10 @@ namespace kharsair
         {
             ros::spinOnce();
             loop_rate.sleep();
-            progressBar << "===|";
+            // progressBar << "===|";
         }
 
-        ROS_INFO("%s", progressBar.str().c_str());
+        // ROS_INFO("%s", progressBar.str().c_str());
 
         farmbot_feedback_received = false;
 
