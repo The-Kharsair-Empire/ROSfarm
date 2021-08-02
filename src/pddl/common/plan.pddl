@@ -1,11 +1,11 @@
  --- OK.
- Match tree built with 804 nodes.
+ Match tree built with 712 nodes.
 
 PDDL problem description loaded: 
 	Domain: C-D-FARMBOT
 	Problem: TASK
-	#Actions: 804
-	#Fluents: 123
+	#Actions: 712
+	#Fluents: 107
 Goals found: 4
 Goals_Edges found: 4
 Starting search with k-BFWS...
@@ -13,18 +13,16 @@ Starting search with k-BFWS...
 --[4 / 1]--
 --[4 / 2]--
 --[4 / 3]--
---[4 / 4]--
---[4 / 5]--
 --[3 / 0]--
---[3 / 6]--
+--[3 / 4]--
 --[2 / 0]--
 --[2 / 4]--
 --[1 / 0]--
 --[1 / 4]--
 --[0 / 0]--
---[0 / 4]--
-Total time: 0.00197
-Nodes generated during search: 2765
-Nodes expanded during search: 174
-Plan found with cost: 18
-Fast-BFS search completed in 0.00197 secs
+--[0 / 5]--
+Total time: 0.001381
+Nodes generated during search: 2244
+Nodes expanded during search: 150
+Plan found with cost: 16
+Fast-BFS search completed in 0.001381 secs

@@ -11,14 +11,13 @@
     seedbin - bin
 )
 (:init
-    (tool-mount-free)
 
-    (farmbot-at home)
+    (farmbot-at a1)
 
+    (carry-tool seeder)
 
     (carry-camera)
 
-    (tool-at seederpos seeder)
     (tool-at wateringnozzlepos wateringnozzle)
     (tool-at weederpos weeder)
     (tool-at soilsensorpos soilsensor)
@@ -28,10 +27,6 @@
     (tool-rack-at weederrack weeder weederpos)
     (tool-rack-at soilsensorrack soilsensor soilsensorpos)
 
-    (no-plant-at a1)
-    (no-plant-at a2)
-    (no-plant-at a3)
-    (no-plant-at a4)
     (no-plant-at a5)
     (no-plant-at a6)
     (no-plant-at a7)
@@ -47,6 +42,10 @@
     (no-plant-at b8)
     (no-plant-at b9)
 
+    (plant-at a4 carrot)
+    (plant-at a3 carrot)
+    (plant-at a2 carrot)
+    (plant-at a1 carrot)
 
 
 
@@ -59,11 +58,7 @@
 
     (container-has seedtray carrotseed1)
     (container-has seedtray carrotseed2)
-    (container-has seedtray carrotseed3)
     (container-has seedtray carrotseed4)
-    (container-has seedtray carrotseed5)
-    (container-has seedtray carrotseed6)
-    (container-has seedtray carrotseed7)
     (container-has seedtray carrotseed8)
 
     (match-seed-type-n-plant-type carrotseed1 carrot)
@@ -83,9 +78,9 @@
 
 )
 (:goal (and
-    (plant-at a1 carrot)
-    (plant-at a2 carrot)
-    (plant-at a3 carrot)
-    (plant-at a4 carrot)
+    (plant-at b1 carrot)
+    (plant-at b2 carrot)
+    (plant-at b3 carrot)
+    (plant-at b4 carrot)
 ))
 )

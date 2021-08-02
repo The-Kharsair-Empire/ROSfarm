@@ -54,7 +54,7 @@
 	</include> -->
 
 	<!--custom planner interface -->
-	<arg name="actual_plan_file"     value="plan_bfws_py.pddl"/>
+	<arg name="actual_plan_file"     value="plan_bfws.pddl"/>
 	<include file="$(find custom_rosplan_components)/launch/custom_planner_interface.launch">
 		<arg name="use_problem_topic"    value="true" />
 		<arg name="problem_topic"        value="/rosplan_problem_interface/problem_instance" />
@@ -65,7 +65,7 @@
 
 		<arg name="planner_command"      value="$(find rosplan_planning_system)/common/bin/bfws &#45;-domain DOMAIN &#45;-problem PROBLEM &#45;-max_novelty 2 &#45;-k-BFWS true &#45;-output $(find pddl)/common/$(arg actual_plan_file)" />
 
-		<!-- <arg name="planner_command"      value="$(find rosplan_planning_system)/common/py/bfws.py DOMAIN PROBLEM $(find pddl)/common/$(arg actual_plan_file)" /> -->
+		<!-- <arg name="planner_command"      value="$(find rosplan_planning_system)/common/fd_py/bfws.py DOMAIN PROBLEM $(find pddl)/common/$(arg actual_plan_file)" /> -->
 
 		<arg name="planner_interface"    value="custom_bfws_planner_interface" />
 		<arg name="actual_plan_file"     value="$(arg actual_plan_file)"/>
