@@ -1,0 +1,1024 @@
+{
+	"States" : [
+		"PS_NO_PLANT",
+		"PS_PLANT_EXISTED",
+		"PS_WATER_PLANT",
+		"PS_REMOVE_WEED"
+	],
+	"Transitions" : [
+		{
+			"name" : "D0",
+			"StartState" : "PS_NO_PLANT",
+			"EndState" : "PS_PLANT_EXISTED",
+			"Guards" : [
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "pos1"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "pos2"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "pos3"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "pos4"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "pos5"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "pos6"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "pos7"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "pos8"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "pos9"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "pos10"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "pos11"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "pos12"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "pos13"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "pos14"
+					}
+				},
+				{
+					"predicate" : "no-plant-at",
+					"parameters" : {
+						"x" : "pos15"
+					}
+				}
+				
+			],
+			"MaintenanceGoals" : [],
+			"AchievementGoals" : [
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos1",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos2",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos3",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos4",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos5",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos6",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos7",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos8",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos9",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos10",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos11",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos12",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos13",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos14",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos15",
+						"p" : "carrot"
+					}
+				}
+			]
+		},
+
+		{
+			"name" : "D1",
+			"StartState" : "PS_PLANT_EXISTED",
+			"EndState" : "PS_WATER_PLANT",
+			"Guards" : [],
+			"MaintenanceGoals" : [
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos1",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos2",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos3",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos4",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos5",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos6",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos7",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos8",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos9",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos10",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos11",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos12",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos13",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos14",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos15",
+						"p" : "carrot"
+					}
+				}
+			],
+			"AchievementGoals" : [
+				
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "pos1",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "pos2",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "pos3",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "pos4",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "pos5",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "pos6",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "pos7",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "pos8",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "pos9",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "pos10",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "pos11",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "pos12",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "pos13",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "pos14",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "checked-moisture",
+					"parameters" : {
+						"x" : "pos15",
+						"p" : "carrot"
+					}
+				}
+			]
+		},
+
+		{
+			"name" : "D2",
+			"StartState" : "PS_WATER_PLANT",
+			"EndState" : "PS_PLANT_EXISTED",
+			"Guards" : [],
+			"MaintenanceGoals" : [
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos1",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos2",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos3",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos4",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos5",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos6",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos7",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos8",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos9",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos10",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos11",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos12",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos13",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos14",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos15",
+						"p" : "carrot"
+					}
+				}
+			],
+			"AchievementGoals" : [
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "pos1",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "pos2",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "pos3",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "pos4",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "pos5",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "pos6",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "pos7",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "pos8",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "pos9",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "pos10",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "pos11",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "pos12",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "pos13",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "pos14",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "watered",
+					"parameters" : {
+						"x" : "pos15",
+						"p" : "carrot"
+					}
+				}
+				
+			]
+		},
+
+		{
+			"name" : "D3",
+			"StartState" : "PS_PLANT_EXISTED",
+			"EndState" : "PS_REMOVE_WEED",
+			"Guards" : [],
+			"MaintenanceGoals" : [
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos1",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos2",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos3",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos4",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos5",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos6",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos7",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos8",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos9",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos10",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos11",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos12",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos13",
+						"p" : "carrot"
+					}
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos14",
+						"p" : "carrot"
+					}
+
+				},
+				{
+					"predicate" : "plant-at",
+					"parameters" : {
+						"x" : "pos15",
+						"p" : "carrot"
+					}
+				}
+			],
+			"AchievementGoals" : [
+				{
+					"predicate" : "checked-weed-exist",
+					"parameters" : {
+						"x" : "pos1"
+					}
+				},
+				{
+					"predicate" : "checked-weed-exist",
+					"parameters" : {
+						"x" : "pos2"
+					}
+				},
+				{
+					"predicate" : "checked-weed-exist",
+					"parameters" : {
+						"x" : "pos3"
+					}
+
+				},
+				{
+					"predicate" : "checked-weed-exist",
+					"parameters" : {
+						"x" : "pos4"
+					}
+
+				},
+                {
+					"predicate" : "checked-weed-exist",
+					"parameters" : {
+						"x" : "pos5"
+					}
+				},
+				{
+					"predicate" : "checked-weed-exist",
+					"parameters" : {
+						"x" : "pos6"
+					}
+				},
+				{
+					"predicate" : "checked-weed-exist",
+					"parameters" : {
+						"x" : "pos7"
+
+					}
+
+				},
+				{
+					"predicate" : "checked-weed-exist",
+					"parameters" : {
+						"x" : "pos8"
+					}
+				},
+				{
+					"predicate" : "checked-weed-exist",
+					"parameters" : {
+						"x" : "pos9"
+					}
+				},
+				{
+					"predicate" : "checked-weed-exist",
+					"parameters" : {
+						"x" : "pos10"
+					}
+				},
+				{
+					"predicate" : "checked-weed-exist",
+					"parameters" : {
+						"x" : "pos11"
+					}
+
+				},
+				{
+					"predicate" : "checked-weed-exist",
+					"parameters" : {
+						"x" : "pos12"
+					}
+
+				},
+                {
+					"predicate" : "checked-weed-exist",
+					"parameters" : {
+						"x" : "pos13"
+					}
+				},
+				{
+					"predicate" : "checked-weed-exist",
+					"parameters" : {
+						"x" : "pos14"
+					}
+				},
+				{
+					"predicate" : "checked-weed-exist",
+					"parameters" : {
+						"x" : "pos15"
+
+					}
+
+				}
+			]
+		},
+		{
+			"name" : "D4",
+			"StartState" : "PS_REMOVE_WEED",
+			"EndState" : "PS_PLANT_EXISTED",
+			"Guards" : [],
+			"MaintenanceGoals" : [],
+			"AchievementGoals" : [
+				{
+					"predicate" : "weed-removed",
+					"parameters" : {
+						"x" : "pos1"
+					}
+				},
+				{
+					"predicate" : "weed-removed",
+					"parameters" : {
+						"x" : "pos2"
+					}
+				},
+				{
+					"predicate" : "weed-removed",
+					"parameters" : {
+						"x" : "pos3"
+					}
+
+				},
+				{
+					"predicate" : "weed-removed",
+					"parameters" : {
+						"x" : "pos4"
+					}
+
+				},
+                {
+					"predicate" : "weed-removed",
+					"parameters" : {
+						"x" : "pos5"
+					}
+				},
+				{
+					"predicate" : "weed-removed",
+					"parameters" : {
+						"x" : "pos6"
+					}
+				},
+				{
+					"predicate" : "weed-removed",
+					"parameters" : {
+						"x" : "pos7"
+
+					}
+
+				},
+				{
+					"predicate" : "weed-removed",
+					"parameters" : {
+						"x" : "pos8"
+					}
+				},
+				{
+					"predicate" : "weed-removed",
+					"parameters" : {
+						"x" : "pos9"
+					}
+				},
+				{
+					"predicate" : "weed-removed",
+					"parameters" : {
+						"x" : "pos10"
+					}
+				},
+				{
+					"predicate" : "weed-removed",
+					"parameters" : {
+						"x" : "pos11"
+					}
+
+				},
+				{
+					"predicate" : "weed-removed",
+					"parameters" : {
+						"x" : "pos12"
+					}
+
+				},
+                {
+					"predicate" : "weed-removed",
+					"parameters" : {
+						"x" : "pos13"
+					}
+				},
+				{
+					"predicate" : "weed-removed",
+					"parameters" : {
+						"x" : "pos14"
+					}
+				},
+				{
+					"predicate" : "weed-removed",
+					"parameters" : {
+						"x" : "pos15"
+
+					}
+
+				}
+			]
+		}
+	]
+
+}

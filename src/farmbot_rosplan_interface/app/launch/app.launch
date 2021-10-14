@@ -2,7 +2,7 @@
 <launch>
 
 	<!-- arguments -->
-	<arg name="APP_Definition_File"	default="$(find app)/res/testLargeCarrotGarden.json" />
+	<arg name="APP_Definition_File"	default="$(find app)/res/GardenLayout15.json" />
     <arg name="node_name"	default="APP" />
 
 	<node name="agent_planning_program_$(arg node_name)" pkg="app" type="APP" respawn="false" output="screen">

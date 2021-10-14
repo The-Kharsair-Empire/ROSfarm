@@ -1,9 +1,9 @@
 (define (problem task)
 (:domain c-d-farmbot)
 (:objects
-    home a1 a2 a3 a4 a5 a6 a7 a8 a9 b1 b2 b3 b4 b5 b6 b7 b8 b9 seederpos wateringnozzlepos weederpos soilsensorpos posseedtray posbin - position
-    carrot basil parsley - plant
-    carrotseed1 carrotseed2 carrotseed3 carrotseed4 carrotseed5 carrotseed6 carrotseed7 carrotseed8 - seed
+    home pos1 pos2 pos3 pos4 pos5 pos6 pos7 pos8 pos9 pos10 pos11 pos12 pos13 pos14 pos15 seederpos wateringnozzlepos weederpos soilsensorpos posseedtray posbin - position
+    carrot - plant
+    seed1 seed2 seed3 seed4 seed5 seed6 seed7 seed8 seed9 seed10 seed11 seed12 seed13 seed14 seed15 - seed
     seeder wateringnozzle weeder soilsensor - tool
     seederrack wateringnozzlerack weederrack soilsensorrack - toolrack
     low high - level
@@ -11,13 +11,14 @@
     seedbin - bin
 )
 (:init
+    (tool-mount-free)
 
-    (farmbot-at a1)
+    (farmbot-at home)
 
-    (carry-tool seeder)
 
     (carry-camera)
 
+    (tool-at seederpos seeder)
     (tool-at wateringnozzlepos wateringnozzle)
     (tool-at weederpos weeder)
     (tool-at soilsensorpos soilsensor)
@@ -27,25 +28,22 @@
     (tool-rack-at weederrack weeder weederpos)
     (tool-rack-at soilsensorrack soilsensor soilsensorpos)
 
-    (no-plant-at a5)
-    (no-plant-at a6)
-    (no-plant-at a7)
-    (no-plant-at a8)
-    (no-plant-at a9)
-    (no-plant-at b1)
-    (no-plant-at b2)
-    (no-plant-at b3)
-    (no-plant-at b4)
-    (no-plant-at b5)
-    (no-plant-at b6)
-    (no-plant-at b7)
-    (no-plant-at b8)
-    (no-plant-at b9)
+    (no-plant-at pos1)
+    (no-plant-at pos2)
+    (no-plant-at pos3)
+    (no-plant-at pos4)
+    (no-plant-at pos5)
+    (no-plant-at pos6)
+    (no-plant-at pos7)
+    (no-plant-at pos8)
+    (no-plant-at pos9)
+    (no-plant-at pos10)
+    (no-plant-at pos11)
+    (no-plant-at pos12)
+    (no-plant-at pos13)
+    (no-plant-at pos14)
+    (no-plant-at pos15)
 
-    (plant-at a4 carrot)
-    (plant-at a3 carrot)
-    (plant-at a2 carrot)
-    (plant-at a1 carrot)
 
 
 
@@ -56,19 +54,37 @@
 
     (container-at posseedtray seedtray)
 
-    (container-has seedtray carrotseed1)
-    (container-has seedtray carrotseed2)
-    (container-has seedtray carrotseed4)
-    (container-has seedtray carrotseed8)
+    (container-has seedtray seed1)
+    (container-has seedtray seed2)
+    (container-has seedtray seed3)
+    (container-has seedtray seed4)
+    (container-has seedtray seed5)
+    (container-has seedtray seed6)
+    (container-has seedtray seed7)
+    (container-has seedtray seed8)
+    (container-has seedtray seed9)
+    (container-has seedtray seed10)
+    (container-has seedtray seed11)
+    (container-has seedtray seed12)
+    (container-has seedtray seed13)
+    (container-has seedtray seed14)
+    (container-has seedtray seed15)
 
-    (match-seed-type-n-plant-type carrotseed1 carrot)
-    (match-seed-type-n-plant-type carrotseed2 carrot)
-    (match-seed-type-n-plant-type carrotseed3 carrot)
-    (match-seed-type-n-plant-type carrotseed4 carrot)
-    (match-seed-type-n-plant-type carrotseed5 carrot)
-    (match-seed-type-n-plant-type carrotseed6 carrot)
-    (match-seed-type-n-plant-type carrotseed7 carrot)
-    (match-seed-type-n-plant-type carrotseed8 carrot)
+    (match-seed-type-n-plant-type seed1 carrot)
+    (match-seed-type-n-plant-type seed2 carrot)
+    (match-seed-type-n-plant-type seed3 carrot)
+    (match-seed-type-n-plant-type seed4 carrot)
+    (match-seed-type-n-plant-type seed5 carrot)
+    (match-seed-type-n-plant-type seed6 carrot)
+    (match-seed-type-n-plant-type seed7 carrot)
+    (match-seed-type-n-plant-type seed8 carrot)
+    (match-seed-type-n-plant-type seed9 carrot)
+    (match-seed-type-n-plant-type seed10 carrot)
+    (match-seed-type-n-plant-type seed11 carrot)
+    (match-seed-type-n-plant-type seed12 carrot)
+    (match-seed-type-n-plant-type seed13 carrot)
+    (match-seed-type-n-plant-type seed14 carrot)
+    (match-seed-type-n-plant-type seed15 carrot)
 
     (bin-at posbin seedbin)
 
@@ -78,9 +94,20 @@
 
 )
 (:goal (and
-    (plant-at b1 carrot)
-    (plant-at b2 carrot)
-    (plant-at b3 carrot)
-    (plant-at b4 carrot)
+    (plant-at pos1 carrot)
+    (plant-at pos2 carrot)
+    (plant-at pos3 carrot)
+    (plant-at pos4 carrot)
+    (plant-at pos5 carrot)
+    (plant-at pos6 carrot)
+    (plant-at pos7 carrot)
+    (plant-at pos8 carrot)
+    (plant-at pos9 carrot)
+    (plant-at pos10 carrot)
+    (plant-at pos11 carrot)
+    (plant-at pos12 carrot)
+    (plant-at pos13 carrot)
+    (plant-at pos14 carrot)
+    (plant-at pos15 carrot)
 ))
 )

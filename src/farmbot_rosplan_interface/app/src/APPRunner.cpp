@@ -1,6 +1,7 @@
 #include <ros/ros.h>
 #include <iostream>
 #include <algorithm>
+#include <chrono>
 #include "rosplan_knowledge_msgs/KnowledgeItem.h"
 #include "rosplan_knowledge_msgs/KnowledgeUpdateService.h"
 #include "rosplan_knowledge_msgs/KnowledgeUpdateServiceArray.h"
@@ -8,6 +9,7 @@
 #include "rosplan_dispatch_msgs/DispatchService.h"
 #include "std_srvs/Empty.h"
 #include "app/AgentPlanningProgram.h"
+
 
 
 
@@ -504,11 +506,14 @@ namespace kharsair::APP
         {
             ros::Rate loop_rate(1);
 
-            while (1)
+            int count = 0;
+
+            while (count < 21)
             {
                 if (!transition()) return;
 
                 loop_rate.sleep();
+                count ++;
 
             }
        
@@ -523,11 +528,14 @@ namespace kharsair::APP
 
 int main(int argc, char **argv)
 {
+    auto start = std::chrono::high_resolution_clock::now();
     ros::init(argc, argv, "agent_planning_program", ros::init_options::AnonymousName);
     ros::NodeHandle nh("~");
     kharsair::APP::APPManager app(nh);
     app.run();
     // app.transitioning();
-    
+    auto end = std::chrono::high_resolution_clock::now();
+    auto time = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    ROS_INFO("Time: (%ld)", time.count());
     return 0;
 }

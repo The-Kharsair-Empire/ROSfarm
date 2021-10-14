@@ -1,12 +1,12 @@
 (define (problem initial-state) (:domain c-d-farmbot)
 (:objects 
-    home A1 A2 A3 A4 A5 A6 A7 A8 A9 B1 B2 B3 B4 B5 B6 B7 B8 B9 - position
-    carrotSeed1 carrotSeed2 carrotSeed3 carrotSeed4 carrotSeed5 carrotSeed6 carrotSeed7 carrotSeed8 - seed
-    carrot basil parsley - plant
+    home pos1 pos2 pos3 pos4 pos5 pos6 pos7 pos8 pos9 pos10 pos11 pos12 pos13 pos14 pos15 - position
+    seed1 seed2 seed3 seed4 seed5 seed6 seed7 seed8 seed9 seed10 seed11 seed12 seed13 seed14 seed15 - seed
+    carrot - plant
 )
 
 (:init
-    ; (farmbot-functioning)
+    
     (farmbot-at home)
     (carry-camera)
     (tool-mount-free)
@@ -23,47 +23,59 @@
     (tool-at soilsensorPos soilsensor)
 
     (container-at posSeedTray seedtray)
-    (container-has seedtray carrotSeed1)  
-    (container-has seedtray carrotSeed2)   
-    (container-has seedtray carrotSeed3)                               
-    (container-has seedtray carrotSeed4)   
-    (container-has seedtray carrotSeed5)   
-    (container-has seedtray carrotSeed6)   
-    (container-has seedtray carrotSeed7)   
-    (container-has seedtray carrotSeed8)   
+
+    (container-has seedtray seed1)  
+    (container-has seedtray seed2)   
+    (container-has seedtray seed3)                               
+    (container-has seedtray seed4)   
+    (container-has seedtray seed5)   
+    (container-has seedtray seed6)   
+    (container-has seedtray seed7)   
+    (container-has seedtray seed8)
+    (container-has seedtray seed9)   
+    (container-has seedtray seed10)
+    (container-has seedtray seed11)  
+    (container-has seedtray seed12)   
+    (container-has seedtray seed13)                               
+    (container-has seedtray seed14)   
+    (container-has seedtray seed15)     
  
 
     (bin-at posBin seedbin)
 
-    (match-seed-type-n-plant-type carrotSeed1 carrot)
-    (match-seed-type-n-plant-type carrotSeed2 carrot)
-    (match-seed-type-n-plant-type carrotSeed3 carrot)
-    (match-seed-type-n-plant-type carrotSeed4 carrot)
-    (match-seed-type-n-plant-type carrotSeed5 carrot)
-    (match-seed-type-n-plant-type carrotSeed6 carrot)
-    (match-seed-type-n-plant-type carrotSeed7 carrot)
-    (match-seed-type-n-plant-type carrotSeed8 carrot)
+    (match-seed-type-n-plant-type seed1 carrot)
+    (match-seed-type-n-plant-type seed2 carrot)
+    (match-seed-type-n-plant-type seed3 carrot)
+    (match-seed-type-n-plant-type seed4 carrot)
+    (match-seed-type-n-plant-type seed5 carrot)
+    (match-seed-type-n-plant-type seed6 carrot)
+    (match-seed-type-n-plant-type seed7 carrot)
+    (match-seed-type-n-plant-type seed8 carrot)
+    (match-seed-type-n-plant-type seed9 carrot)
+    (match-seed-type-n-plant-type seed10 carrot)
+    (match-seed-type-n-plant-type seed11 carrot)
+    (match-seed-type-n-plant-type seed12 carrot)
+    (match-seed-type-n-plant-type seed13 carrot)
+    (match-seed-type-n-plant-type seed14 carrot)
+    (match-seed-type-n-plant-type seed15 carrot)
 
 
-    (no-plant-at A1)
-    (no-plant-at A2)
-    (no-plant-at A3)
-    (no-plant-at A4)
-    (no-plant-at A5)
-    (no-plant-at A6)
-    (no-plant-at A7)
-    (no-plant-at A8)
-    (no-plant-at A9)
-
-    (no-plant-at B1)
-    (no-plant-at B2)
-    (no-plant-at B3)
-    (no-plant-at B4)
-    (no-plant-at B5)
-    (no-plant-at B6)
-    (no-plant-at B7)
-    (no-plant-at B8)
-    (no-plant-at B9)
+    (no-plant-at pos1)
+    (no-plant-at pos2)
+    (no-plant-at pos3)
+    (no-plant-at pos4)
+    (no-plant-at pos5)
+    (no-plant-at pos6)
+    (no-plant-at pos7)
+    (no-plant-at pos8)
+    (no-plant-at pos9)
+    (no-plant-at pos10)
+    (no-plant-at pos11)
+    (no-plant-at pos12)
+    (no-plant-at pos13)
+    (no-plant-at pos14)
+    (no-plant-at pos15)
+   
 
 
 )
